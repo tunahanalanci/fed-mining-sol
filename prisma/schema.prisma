@@ -1,0 +1,73 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/client"
+}
+
+model User {
+  id               String            @id @default(uuid())
+  email            String            @unique
+  passwordHash     String
+  companyName      String
+  contactPerson    String
+  phone            String?
+  role             String            @default("user") // "user" | "admin"
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  customerDrifters CustomerDrifter[]
+  quotes           Quote[]
+}
+
+model Part {
+  id                 String      @id @default(uuid())
+  partNumber         String      @unique // e.g. "154 216 18"
+  name               String      // e.g. "PISTON"
+  brand              String      // "Sandvik" | "Epiroc"
+  category           String      // "Piston", "Seal Kit", "Bushing", "Valve", "Diaphragm", etc.
+  oemReference       String?     // Cross reference number
+  compatibleDrifters String      // Comma-separated list: "COP1838, COP1840, HL700"
+  description        String?
+  imageUrl           String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  quoteItems         QuoteItem[]
+}
+
+model CustomerDrifter {
+  id                 String   @id @default(uuid())
+  userId             String
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  drifterModel       String   // e.g. "COP1838"
+  serialNumber       String
+  currentHours       Float    @default(0)
+  averageWeeklyHours Float    @default(0)
+  lastOverhaulHours  Float    @default(0) // hours at last 400h seal check
+  lastUpdatedAt      DateTime @default(now())
+  createdAt          DateTime @default(now())
+}
+
+model Quote {
+  id        String      @id @default(uuid())
+  userId    String?
+  user      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  name      String      // Contact name for guest checkout
+  email     String      // Contact email
+  phone     String?
+  message   String?
+  status    String      @default("pending") // "pending" | "contacted" | "completed"
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  items     QuoteItem[]
+}
+
+model QuoteItem {
+  id        String @id @default(uuid())
+  quoteId   String
+  quote     Quote  @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  partId    String
+  part      Part   @relation(fields: [partId], references: [id], onDelete: Cascade)
+  quantity  Int    @default(1)
+}
