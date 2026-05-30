@@ -9,10 +9,10 @@ export default function Footer() {
 
   return (
     <footer style={{
-      background: 'var(--bg-card)',
-      borderTop: '1px solid var(--border-color)',
-      paddingTop: 48,
-      paddingBottom: 24,
+      background: '#0d1320',
+      borderTop: '3px solid rgba(255,192,61,0.25)',
+      paddingTop: 56,
+      paddingBottom: 28,
     }}>
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 40, marginBottom: 40 }}>
@@ -78,7 +78,7 @@ export default function Footer() {
                 key={l.href}
                 href={l.href}
                 style={{
-                  display: 'block', fontSize: 14, color: 'var(--text-muted)',
+                  display: 'block', fontSize: 14, color: 'rgba(255,255,255,0.55)',
                   marginBottom: 8, transition: 'color 0.2s',
                 }}
               >{l.label}</Link>
@@ -98,7 +98,7 @@ export default function Footer() {
               'Rotation Motors',
               'Valve Assemblies',
             ].map(p => (
-              <div key={p} style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 8 }}>
+              <div key={p} style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>
                 {p}
               </div>
             ))}
@@ -112,15 +112,15 @@ export default function Footer() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                 <MapPin size={15} color="var(--primary)" style={{ marginTop: 2, flexShrink: 0 }} />
-                <span style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>
                   Turkey
                 </span>
               </div>
-              <a href="tel:+905061208706" style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 13, color: 'var(--text-muted)' }}>
+              <a href="tel:+905061208706" style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>
                 <Phone size={15} color="var(--primary)" />
                 +90 506 120 87 06
               </a>
-              <a href="mailto:Info@FedMiningSolutions.com" style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 13, color: 'var(--text-muted)' }}>
+              <a href="mailto:Info@FedMiningSolutions.com" style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>
                 <Mail size={15} color="var(--primary)" />
                 Info@FedMiningSolutions.com
               </a>
@@ -144,7 +144,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div style={{
-          borderTop: '1px solid var(--border-color)',
+          borderTop: '1px solid rgba(255,255,255,0.08)',
           paddingTop: 20,
           display: 'flex',
           flexWrap: 'wrap',
@@ -152,10 +152,10 @@ export default function Footer() {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-          <p style={{ fontSize: 12, color: 'var(--text-dark)' }}>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>
             © {new Date().getFullYear()} FED Mining Solutions and Parts (FED MADENCİLİK MAKİNA İTH. İHR. SAN. TİC. LTD.). All rights reserved.
           </p>
-          <p style={{ fontSize: 12, color: 'var(--text-dark)' }}>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>
             Turkey — Worldwide Shipping
           </p>
         </div>

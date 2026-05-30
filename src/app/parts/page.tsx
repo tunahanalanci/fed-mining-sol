@@ -121,7 +121,7 @@ function PartCard({ part, inBasket, onAdd }: { part: Part; inBasket: boolean; on
           position: 'absolute', top: 10, right: 10,
           fontSize: 10, fontWeight: 600,
           padding: '3px 8px', borderRadius: 4,
-          background: 'rgba(11,15,25,0.75)',
+          background: 'rgba(255,255,255,0.88)',
           color: 'var(--text-muted)',
           backdropFilter: 'blur(8px)',
         }}>{part.category}</span>
@@ -129,7 +129,7 @@ function PartCard({ part, inBasket, onAdd }: { part: Part; inBasket: boolean; on
 
       {/* Body */}
       <div style={{ padding: '14px 16px', flex: 1, display: 'flex', flexDirection: 'column', gap: 0 }}>
-        <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 8, lineHeight: 1.3, color: 'var(--text-white)' }}>
+        <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 8, lineHeight: 1.3, color: 'var(--text-main)' }}>
           {part.name}
         </h3>
 
@@ -225,7 +225,7 @@ function PartRow({ part, inBasket, onAdd }: { part: Part; inBasket: boolean; onA
               color: 'var(--text-muted)',
             }}>{part.category}</span>
           </div>
-          <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4, color: 'var(--text-white)' }}>{part.name}</h3>
+          <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4, color: 'var(--text-main)' }}>{part.name}</h3>
           <div style={{ display: 'flex', gap: 16, fontSize: 11, color: 'var(--text-muted)' }}>
             <span><span style={{ color: 'var(--text-dark)' }}>No: </span>{part.partNumber}</span>
             {part.oemReference && <span><span style={{ color: 'var(--text-dark)' }}>OEM: </span>{part.oemReference}</span>}

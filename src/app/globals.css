@@ -1,45 +1,46 @@
-/* FED Mining Solutions and Parts - Global CSS Design System */
+/* FED Mining Solutions and Parts — Global CSS Design System (Light Theme) */
 
 :root {
-  /* Colors */
-  --bg-main: #0b0f19;
-  --bg-card: #151b26;
-  --bg-card-hover: #1e2638;
-  --border-color: #243048;
-  --border-light: rgba(255, 255, 255, 0.08);
-  
+  /* ── Light Theme Colors ── */
+  --bg-main: #f0f3f8;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-dark: #0d1320;
+  --border-color: #e2e8f0;
+  --border-light: rgba(0, 0, 0, 0.06);
+
   --primary: #ffc03d;
   --primary-hover: #e6ab30;
   --primary-rgb: 255, 192, 61;
-  --secondary: #212d45;
-  --secondary-hover: #2b3b5a;
-  
-  --text-main: #f3f4f6;
-  --text-muted: #9ca3af;
-  --text-dark: #4b5563;
+  --secondary: #1a2540;
+  --secondary-hover: #243358;
+
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --text-dark: #94a3b8;
   --text-white: #ffffff;
-  
+
   /* Brand Highlights */
   --sandvik-red: #ef4444;
   --sandvik-hover: #dc2626;
   --epiroc-yellow: #f59e0b;
   --epiroc-hover: #d97706;
-  
+
   /* Status Colors */
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
-  
+
   /* Radii */
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-full: 9999px;
-  
-  /* Shadow & Blur */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+
+  /* Shadows — refined for light theme */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.10), 0 4px 8px rgba(0, 0, 0, 0.06);
   --blur-md: blur(12px);
   --blur-lg: blur(24px);
 
@@ -47,7 +48,7 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Resets */
+/* ── Resets ── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -66,10 +67,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background-color: var(--bg-main);
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(33, 45, 69, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(255, 192, 61, 0.05) 0%, transparent 40%);
-  background-attachment: fixed;
 }
 
 img {
@@ -93,27 +90,18 @@ button, input, select, textarea {
   outline: none;
 }
 
-button {
-  cursor: pointer;
-}
+button { cursor: pointer; }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-main);
-}
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f0f3f8; }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
+  background: #cbd5e1;
   border-radius: var(--radius-sm);
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
-}
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-/* Layout Utilities */
+/* ── Layout Utilities ── */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -149,15 +137,14 @@ button {
 .gap-4 { gap: 16px; }
 .gap-6 { gap: 24px; }
 .gap-8 { gap: 32px; }
-
 .w-full { width: 100%; }
 .h-full { height: 100%; }
 
-/* Styling Utilities */
+/* ── Styling Utilities ── */
 .glass {
-  background: rgba(21, 27, 38, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: var(--blur-md);
-  border: 1px solid var(--border-light);
+  border: 1px solid rgba(0, 0, 0, 0.07);
 }
 
 .card {
@@ -165,15 +152,19 @@ button {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 24px;
-  transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
 }
 .card:hover {
   transform: translateY(-4px);
   border-color: rgba(255, 192, 61, 0.4);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 192, 61, 0.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1),
+              0 0 15px rgba(255, 192, 61, 0.07);
 }
 
-/* Buttons */
+/* ── Buttons ── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -184,7 +175,6 @@ button {
   transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
   gap: 8px;
 }
-
 .btn-primary {
   background-color: var(--primary);
   color: #0b0f19;
@@ -192,19 +182,27 @@ button {
 .btn-primary:hover {
   background-color: var(--primary-hover);
   transform: scale(1.02);
-  box-shadow: 0 0 20px rgba(255, 192, 61, 0.3);
+  box-shadow: 0 0 20px rgba(255, 192, 61, 0.35);
 }
-
 .btn-secondary {
   background-color: transparent;
   border: 1px solid var(--border-color);
   color: var(--text-main);
 }
 .btn-secondary:hover {
-  background-color: var(--secondary);
+  background-color: var(--bg-card-hover);
   border-color: var(--primary);
+  color: var(--text-main);
 }
-
+.btn-secondary-light {
+  background-color: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: var(--text-white);
+}
+.btn-secondary-light:hover {
+  background-color: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.4);
+}
 .btn-sandvik {
   background-color: var(--sandvik-red);
   color: var(--text-white);
@@ -213,7 +211,6 @@ button {
   background-color: var(--sandvik-hover);
   box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
 }
-
 .btn-epiroc {
   background-color: var(--epiroc-yellow);
   color: #0b0f19;
@@ -223,13 +220,12 @@ button {
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
 }
 
-/* Typography */
+/* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
-  color: var(--text-white);
+  color: var(--text-main);
   line-height: 1.2;
 }
-
 h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem; }
@@ -238,117 +234,98 @@ p {
   color: var(--text-muted);
 }
 
-/* Animations */
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(255, 192, 61, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(255, 192, 61, 0.25);
-  }
-}
+/* Dark section — overrides for hero, footer, CTA */
+.dark-section h1,
+.dark-section h2,
+.dark-section h3,
+.dark-section h4,
+.dark-section h5 { color: var(--text-white); }
+.dark-section p  { color: rgba(255, 255, 255, 0.68); }
 
+/* ── Animations ── */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 192, 61, 0.12); }
+  50%       { box-shadow: 0 0 28px rgba(255, 192, 61, 0.28); }
+}
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50%       { transform: translateY(-8px); }
+}
+.float      { animation: float 4s ease-in-out infinite; }
+.glow-active{ animation: pulseGlow 2.5s ease-in-out infinite; }
+
+/* Hero animated background */
+@keyframes heroGlow {
+  0%, 100% { transform: scale(1)    translate(0,    0);    opacity: 1;    }
+  33%       { transform: scale(1.04) translate(-2.5%, 1.5%); opacity: 0.82; }
+  66%       { transform: scale(1.02) translate(1.5%, -2%);  opacity: 0.9;  }
+}
+@keyframes heroScan {
+  0%   { top: -2px; left: -40%; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 0.5; }
+  100% { top: 105%;  left: 110%; opacity: 0; }
 }
 
-.float {
-  animation: float 4s ease-in-out infinite;
+.hero-animated-bg {
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(ellipse 900px 650px at 25% 45%, rgba(255,192,61,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 700px 800px at 78% 20%, rgba(96,165,250,0.07)  0%, transparent 55%),
+    radial-gradient(ellipse 500px 500px at 55% 88%, rgba(167,139,250,0.05) 0%, transparent 50%);
+  animation: heroGlow 16s ease-in-out infinite;
+  pointer-events: none;
+}
+.hero-scan {
+  position: absolute;
+  width: 40%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,192,61,0.22), transparent);
+  animation: heroScan 10s linear infinite;
+  pointer-events: none;
 }
 
-.glow-active {
-  animation: pulseGlow 2.5s ease-in-out infinite;
-}
-
-/* ── Scroll Reveal Animations ── */
+/* ── Scroll Reveal ── */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(32px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
-
-@keyframes countUp {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(32px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
 
-/* Scroll-reveal base state */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.visible        { opacity: 1; transform: translateY(0); }
 .reveal-left {
   opacity: 0;
   transform: translateX(-28px);
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.reveal-left.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
+.reveal-left.visible   { opacity: 1; transform: translateX(0); }
 .reveal-right {
   opacity: 0;
   transform: translateX(28px);
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.reveal-right.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
+.reveal-right.visible  { opacity: 1; transform: translateX(0); }
 
-/* Stagger delay helpers */
 .delay-1 { transition-delay: 0.08s; }
 .delay-2 { transition-delay: 0.16s; }
 .delay-3 { transition-delay: 0.24s; }
@@ -356,23 +333,18 @@ p {
 .delay-5 { transition-delay: 0.40s; }
 .delay-6 { transition-delay: 0.48s; }
 
-/* Part card image shimmer overlay */
+/* ── Part card image shimmer ── */
 .part-img-wrap {
   position: relative;
   overflow: hidden;
-  background: var(--bg-main);
+  background: #f8fafc;
   border-radius: 8px 8px 0 0;
 }
 .part-img-wrap::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    105deg,
-    transparent 30%,
-    rgba(255,255,255,0.06) 50%,
-    transparent 70%
-  );
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
   transform: translateX(-100%);
   transition: transform 0.6s ease;
 }
@@ -380,11 +352,12 @@ p {
   transform: translateX(150%);
 }
 
-/* Part card enhanced hover */
+/* Part card */
 .part-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
   transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1),
               border-color 0.3s ease,
               box-shadow 0.3s ease;
@@ -394,8 +367,8 @@ p {
 .part-card:hover {
   transform: translateY(-6px);
   border-color: rgba(255, 192, 61, 0.45);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5),
-              0 0 20px rgba(255, 192, 61, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12),
+              0 0 20px rgba(255, 192, 61, 0.07);
 }
 
 /* List view row */
@@ -403,11 +376,24 @@ p {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  transition: border-color 0.25s ease, background-color 0.25s ease;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.25s ease,
+              box-shadow 0.25s ease,
+              background-color 0.25s ease;
   overflow: hidden;
 }
 .part-row:hover {
   border-color: rgba(255, 192, 61, 0.4);
+  box-shadow: var(--shadow-md);
   background-color: var(--bg-card-hover);
 }
 
+/* Skeleton animation */
+@keyframes shimmerMove {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1;   }
+  50%       { opacity: 0.4; }
+}

@@ -65,12 +65,11 @@ export default function Navbar() {
         right: 0,
         zIndex: 1000,
         height: '70px',
-        background: scrolled
-          ? 'rgba(11, 15, 25, 0.96)'
-          : 'rgba(11, 15, 25, 0.85)',
+        background: 'rgba(255, 255, 255, 0.97)',
         backdropFilter: 'blur(16px)',
-        borderBottom: scrolled ? '1px solid rgba(255,192,61,0.15)' : '1px solid rgba(255,255,255,0.05)',
-        transition: 'all 0.3s ease',
+        borderBottom: '1px solid var(--border-color)',
+        boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
+        transition: 'box-shadow 0.3s ease',
       }}
     >
       <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -82,7 +81,7 @@ export default function Navbar() {
             fontWeight: 900, fontSize: 14, color: '#0b0f19', letterSpacing: '-0.5px'
           }}>FED</div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--text-white)', lineHeight: 1.1 }}>
+            <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--text-main)', lineHeight: 1.1 }}>
               FED Mining
             </div>
             <div style={{ fontSize: 10, color: 'var(--primary)', letterSpacing: '0.08em', fontWeight: 600 }}>
@@ -102,7 +101,7 @@ export default function Navbar() {
                 borderRadius: 6,
                 fontSize: 14,
                 fontWeight: 500,
-                color: pathname === link.href ? 'var(--primary)' : 'var(--text-muted)',
+                color: pathname === link.href ? 'var(--primary)' : '#475569',
                 background: pathname === link.href ? 'rgba(255,192,61,0.1)' : 'transparent',
                 transition: 'all 0.2s ease',
               }}
@@ -216,8 +215,9 @@ export default function Navbar() {
       {mobileOpen && (
         <div style={{
           position: 'absolute', top: 70, left: 0, right: 0,
-          background: 'rgba(11, 15, 25, 0.98)',
+          background: 'rgba(255,255,255,0.99)',
           borderBottom: '1px solid var(--border-color)',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
           padding: '12px 20px 20px',
         }}>
           {navLinks.map(link => (
@@ -229,7 +229,7 @@ export default function Navbar() {
                 display: 'block', padding: '12px 0',
                 borderBottom: '1px solid var(--border-color)',
                 fontSize: 15, fontWeight: 500,
-                color: pathname === link.href ? 'var(--primary)' : 'var(--text-main)',
+                color: pathname === link.href ? 'var(--primary)' : '#334155',
               }}
             >
               {link.label}
