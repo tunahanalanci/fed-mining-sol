@@ -93,7 +93,7 @@ export default function Navbar() {
           </div>
           <div>
             <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
-              Turkey &mdash; Worldwide Shipping
+              {language === 'tr' ? 'Türkiye — Dünya Geneli Gönderim' : 'Turkey — Worldwide Shipping'}
             </span>
           </div>
         </div>

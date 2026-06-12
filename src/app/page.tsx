@@ -25,30 +25,31 @@ const EPIROC_DRIFTERS = [
 ];
 
 const ADVANTAGES = [
-  { icon: Shield,     title: 'OEM Uyumlu Kalite',    desc: 'Orijinal spesifikasyonlara gore uretilmis, induksiyon sertlestirilmis alasiimli celik parcalar.',    color: '#ffc03d', bg: 'rgba(255,192,61,0.1)',   border: 'rgba(255,192,61,0.25)' },
-  { icon: Clock,      title: 'Hizli Teslimat',        desc: '48 saat icinde hazirlanan stoktan teslim. Kritik duraklamalari minimuma indiriyoruz.',              color: '#10b981', bg: 'rgba(16,185,129,0.1)',   border: 'rgba(16,185,129,0.25)' },
-  { icon: Globe2,     title: 'Dunya Geneli Gonderim', desc: 'Turkiye, Sili ve Gana merkezlerimizden 50+ ulkeye sevkiyat yapiyoruz.',                             color: '#60a5fa', bg: 'rgba(96,165,250,0.1)',   border: 'rgba(96,165,250,0.25)' },
-  { icon: Headphones, title: '7/24 Teknik Destek',   desc: '30+ uzman mühendis kadromuzla WhatsApp ve e-posta üzerinden kesintisiz teknik destek.',             color: '#a78bfa', bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.25)' },
+  { icon: Shield,     titleTr: 'OEM Uyumlu Kalite',    titleEn: 'OEM Compatible Quality',    descTr: 'Orijinal spesifikasyonlara göre üretilmiş, indüksiyonla sertleştirilmiş alaşımlı çelik parçalar.',    descEn: 'Induction-hardened alloy steel parts manufactured strictly according to original OEM specifications.',    color: '#ffc03d', bg: 'rgba(255,192,61,0.1)',   border: 'rgba(255,192,61,0.25)' },
+  { icon: Clock,      titleTr: 'Hızlı Teslimat',        titleEn: 'Fast Delivery',             descTr: '48 saat içinde hazırlanan stoktan teslim. Kritik duraklamaları minimuma indiriyoruz.',              descEn: 'Ready to ship from stock in 48 hours. Minimizing critical operational downtime.',                    color: '#10b981', bg: 'rgba(16,185,129,0.1)',   border: 'rgba(16,185,129,0.25)' },
+  { icon: Globe2,     titleTr: 'Dünya Geneli Gönderim', titleEn: 'Worldwide Shipping',        descTr: 'Türkiye, Şili ve Gana merkezlerimizden 50+ ülkeye sevkiyat yapıyoruz.',                             descEn: 'Shipping to 50+ countries from our hubs in Turkey, Chile, and Ghana.',                             color: '#60a5fa', bg: 'rgba(96,165,250,0.1)',   border: 'rgba(96,165,250,0.25)' },
+  { icon: Headphones, titleTr: '7/24 Teknik Destek',   titleEn: '24/7 Expert Support',       descTr: '30+ uzman mühendis kadromuzla WhatsApp ve e-posta üzerinden kesintisiz teknik destek.',             descEn: 'Uninterrupted technical support via WhatsApp and email backed by 30+ expert engineers.',             color: '#a78bfa', bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.25)' },
 ];
 
 const STATS = [
-  { value: '30.000+', label: 'Erisebilir Parca Numarasi', icon: Package },
-  { value: '56+',     label: 'Is Ortagi',                  icon: Star },
-  { value: '3',       label: 'Ulke: TR / CL / GH',         icon: Globe2 },
-  { value: '400s',    label: 'Revizyon Garantisi',          icon: CheckCircle2 },
+  { value: '30.000+', labelTr: 'Erişilebilir Parça Numarası', labelEn: 'Accessible Part Numbers', icon: Package },
+  { value: '56+',     labelTr: 'İş Ortağı',                  labelEn: 'Business Partners',   icon: Star },
+  { value: '3',       labelTr: 'Ülke: TR / CL / GH',         labelEn: 'Countries: TR / CL / GH', icon: Globe2 },
+  { value: '400s',    labelTr: 'Revizyon Garantisi',          labelEn: 'Overhaul Warranty',          icon: CheckCircle2 },
 ];
 
 const PRODUCT_CATEGORIES = [
-  { name: 'Drifterlar',       img: '/drifter.png',        desc: 'Komple Sandvik & Epiroc' },
-  { name: 'Conta Kitleri',    img: '/friction-disc.png',  desc: '400s / 800s revizyon' },
-  { name: 'Alt Takim',        img: '/undercarriage.png',  desc: 'Paletli ekipman' },
-  { name: 'Sogutma',          img: '/cooling.png',        desc: 'Sogutma sistemleri' },
-  { name: 'Cam & Kabin',      img: '/glass.png',          desc: 'Operatör kabini' },
-  { name: 'Alt Takim 2',      img: '/undercarriage2.png', desc: 'Tahrik sistemi' },
+  { nameTr: 'Drifterlar',       nameEn: 'Drifters',       img: '/drifter.png',        descTr: 'Komple Sandvik & Epiroc', descEn: 'Complete Sandvik & Epiroc' },
+  { nameTr: 'Conta Kitleri',    nameEn: 'Seal Kits',      img: '/friction-disc.png',  descTr: '400s / 800s revizyon',    descEn: '400h / 800h overhaul' },
+  { nameTr: 'Alt Takım',        nameEn: 'Undercarriage',  img: '/undercarriage.png',  descTr: 'Paletli ekipman',         descEn: 'Crawler equipment' },
+  { nameTr: 'Soğutma',          nameEn: 'Cooling',        img: '/cooling.png',        descTr: 'Soğutma sistemleri',      descEn: 'Cooling systems' },
+  { nameTr: 'Cam & Kabin',      nameEn: 'Cabin Glass',    img: '/glass.png',          descTr: 'Operatör kabini',         descEn: 'Operator cabin' },
+  { nameTr: 'Alt Takım 2',      nameEn: 'Undercarriage 2', img: '/undercarriage2.png', descTr: 'Tahrik sistemi',          descEn: 'Drive system' },
 ];
 
 export default function HomePage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isTr = language === 'tr';
 
   return (
     <div style={{ paddingTop: 0 }}>
@@ -131,7 +132,7 @@ export default function HomePage() {
                 maxWidth: 560, marginBottom: 16,
                 color: 'rgba(255,255,255,0.7)',
               }}>
-                Achieve Your Dream and Inspire
+                {isTr ? 'Hayalinizdekini Başarın ve İlham Verin' : 'Achieve Your Dream and Inspire'}
               </p>
               <p style={{
                 fontSize: 15, lineHeight: 1.7,
@@ -143,7 +144,10 @@ export default function HomePage() {
 
               {/* Guven maddeleri */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 28px', marginBottom: 40 }}>
-                {['OEM uyumlu spesifikasyonlar', '400 saatlik revizyon garantisi', '30+ uzman mühendis'].map(b => (
+                {(isTr
+                  ? ['OEM uyumlu spesifikasyonlar', '400 saatlik revizyon garantisi', '30+ uzman mühendis']
+                  : ['OEM compatible specifications', '400-hour overhaul warranty', '30+ expert engineers']
+                ).map(b => (
                   <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 13, color: 'rgba(255,255,255,0.7)' }}>
                     <CheckCircle2 size={14} color="#ffc03d" />
                     {b}
@@ -205,7 +209,7 @@ export default function HomePage() {
                     SANDVIK &amp; EPIROC
                   </div>
                   <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>
-                    OEM uyumlu yedek parca uzmani
+                    {isTr ? 'OEM uyumlu yedek parça uzmanı' : 'OEM compatible spare parts expert'}
                   </div>
                 </div>
               </div>
@@ -245,7 +249,9 @@ export default function HomePage() {
                     <Icon size={18} color="var(--primary)" />
                   </div>
                   <div style={{ fontSize: 26, fontWeight: 900, color: 'var(--text-main)', fontFamily: 'var(--font-heading)' }}>{s.value}</div>
-                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 3 }}>{s.label}</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 3 }}>
+                    {isTr ? s.labelTr : s.labelEn}
+                  </div>
                 </div>
               );
             })}
@@ -269,21 +275,23 @@ export default function HomePage() {
               border: '1px solid rgba(255,192,61,0.25)',
               borderRadius: 99,
               fontFamily: 'var(--font-heading)',
-            }}>Parca Yelpazesi</span>
-            <h2 style={{ marginBottom: 14, marginTop: 8 }}>Urun Kategorilerimiz</h2>
+            }}>{isTr ? 'Parça Yelpazesi' : 'Product Range'}</span>
+            <h2 style={{ marginBottom: 14, marginTop: 8 }}>{isTr ? 'Ürün Kategorilerimiz' : 'Our Product Categories'}</h2>
             <p style={{ maxWidth: 520, margin: '0 auto', fontSize: 16 }}>
-              Induction sertlestirilmis alasiimli celikten orijinal spesifikasyonlara gore uretilmis tum parcalar.
+              {isTr
+                ? 'İndüksiyonla sertleştirilmiş alaşımlı çelikten orijinal spesifikasyonlara göre üretilmiş tüm parçalar.'
+                : 'All parts manufactured strictly according to original specifications using induction-hardened alloy steel.'}
             </p>
           </ScrollReveal>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 20 }}>
             {PRODUCT_CATEGORIES.map((cat, i) => (
-              <ScrollReveal key={cat.name} delay={i * 80}>
+              <ScrollReveal key={isTr ? cat.nameTr : cat.nameEn} delay={i * 80}>
                 <div className="card" style={{ padding: 0, overflow: 'hidden', cursor: 'pointer' }}>
                   <div style={{ position: 'relative', height: 180, overflow: 'hidden' }}>
                     <Image
                       src={cat.img}
-                      alt={cat.name}
+                      alt={isTr ? cat.nameTr : cat.nameEn}
                       fill
                       style={{ objectFit: 'cover', transition: 'transform 0.4s ease' }}
                     />
@@ -294,13 +302,13 @@ export default function HomePage() {
                     <div style={{
                       position: 'absolute', bottom: 12, left: 14,
                     }}>
-                      <div style={{ fontSize: 15, fontWeight: 800, color: '#ffffff', fontFamily: 'var(--font-heading)' }}>{cat.name}</div>
-                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>{cat.desc}</div>
+                      <div style={{ fontSize: 15, fontWeight: 800, color: '#ffffff', fontFamily: 'var(--font-heading)' }}>{isTr ? cat.nameTr : cat.nameEn}</div>
+                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>{isTr ? cat.descTr : cat.descEn}</div>
                     </div>
                   </div>
                   <div style={{ padding: '14px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Link href="/parts" style={{ fontSize: 13, color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>
-                      Parcalari Goster
+                      {isTr ? 'Parçaları Göster' : 'Browse Parts'}
                     </Link>
                     <ChevronRight size={16} color="var(--primary)" />
                   </div>
@@ -327,7 +335,7 @@ export default function HomePage() {
               border: '1px solid rgba(255,192,61,0.25)',
               borderRadius: 99,
               fontFamily: 'var(--font-heading)',
-            }}>OEM Uyumlu Urunler</span>
+            }}>{isTr ? 'OEM Uyumlu Ürünler' : 'OEM Compatible Products'}</span>
             <h2 style={{ marginBottom: 14, marginTop: 8 }}>{t('home.brandTitle')}</h2>
             <p style={{ maxWidth: 520, margin: '0 auto', fontSize: 16 }}>{t('home.brandSub')}</p>
           </ScrollReveal>
@@ -346,19 +354,21 @@ export default function HomePage() {
                   <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#ef4444' }} />
                   <span style={{ fontSize: 12, fontWeight: 700, color: '#ef4444', letterSpacing: '0.06em', fontFamily: 'var(--font-heading)' }}>SANDVIK / TAMROCK</span>
                 </div>
-                <h3 style={{ marginBottom: 8, fontSize: 20 }}>Sandvik Rock Drills</h3>
+                <h3 style={{ marginBottom: 8, fontSize: 20 }}>{isTr ? 'Sandvik Kaya Delicileri' : 'Sandvik Rock Drills'}</h3>
                 <p style={{ fontSize: 14, marginBottom: 20, lineHeight: 1.7 }}>
-                  HL serisi yeralti &amp; RD/HLX yuzey drifterlari. Uyumlu yedek parcalar ve komple revizyon uniteleri.
+                  {isTr
+                    ? 'HL serisi yer altı & RD/HLX yer üstü drifterları. Uyumlu yedek parçalar ve komple revizyon üniteleri.'
+                    : 'HL series underground & RD/HLX surface drifters. Compatible spare parts and complete overhaul units.'}
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 28 }}>
                   {['HL500', 'HL700', 'HL1000', 'HLX5', 'RD520', 'RD525'].map(m => (
                     <span key={m} style={{ background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.18)', borderRadius: 4, padding: '3px 9px', fontSize: 12, fontWeight: 600, color: '#dc2626', fontFamily: 'var(--font-heading)' }}>{m}</span>
                   ))}
-                  <span style={{ fontSize: 12, color: 'var(--text-muted)', padding: '3px 4px' }}>+daha fazla</span>
+                  <span style={{ fontSize: 12, color: 'var(--text-muted)', padding: '3px 4px' }}>{isTr ? '+daha fazla' : '+more'}</span>
                 </div>
                 <div style={{ display: 'flex', gap: 10 }}>
-                  <Link href="/parts?brand=Sandvik" className="btn btn-sandvik" style={{ fontSize: 13, padding: '9px 18px' }}>Parcalara Goz At</Link>
-                  <Link href="/drifters?brand=sandvik" className="btn btn-secondary" style={{ fontSize: 13, padding: '9px 18px' }}>Drifterlari Goster</Link>
+                  <Link href="/parts?brand=Sandvik" className="btn btn-sandvik" style={{ fontSize: 13, padding: '9px 18px' }}>{isTr ? 'Parçalara Göz At' : 'Browse Parts'}</Link>
+                  <Link href="/drifters?brand=sandvik" className="btn btn-secondary" style={{ fontSize: 13, padding: '9px 18px' }}>{isTr ? 'Drifterları Göster' : 'Show Drifters'}</Link>
                 </div>
               </div>
             </ScrollReveal>
@@ -375,19 +385,21 @@ export default function HomePage() {
                   <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#f59e0b' }} />
                   <span style={{ fontSize: 12, fontWeight: 700, color: '#d97706', letterSpacing: '0.06em', fontFamily: 'var(--font-heading)' }}>EPIROC / ATLAS COPCO</span>
                 </div>
-                <h3 style={{ marginBottom: 8, fontSize: 20 }}>Epiroc COP Serisi</h3>
+                <h3 style={{ marginBottom: 8, fontSize: 20 }}>{isTr ? 'Epiroc COP Serisi' : 'Epiroc COP Series'}</h3>
                 <p style={{ fontSize: 14, marginBottom: 20, lineHeight: 1.7 }}>
-                  COP serisi yeralti Boomer &amp; yuzey ROC drifterlari. Orijinal OEM spesifikasyonlariyla tam uyumlu parcalar.
+                  {isTr
+                    ? 'COP serisi yer altı Boomer & yer üstü ROC drifterları. Orijinal OEM spesifikasyonlarıyla tam uyumlu parçalar.'
+                    : 'COP series underground Boomer & surface ROC drifters. Parts fully compatible with original OEM specifications.'}
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 28 }}>
                   {['COP1838', 'COP2560', 'COP1638', 'COP4050', 'MD20', 'COP3060'].map(m => (
                     <span key={m} style={{ background: 'rgba(245,158,11,0.07)', border: '1px solid rgba(245,158,11,0.18)', borderRadius: 4, padding: '3px 9px', fontSize: 12, fontWeight: 600, color: '#b45309', fontFamily: 'var(--font-heading)' }}>{m}</span>
                   ))}
-                  <span style={{ fontSize: 12, color: 'var(--text-muted)', padding: '3px 4px' }}>+daha fazla</span>
+                  <span style={{ fontSize: 12, color: 'var(--text-muted)', padding: '3px 4px' }}>{isTr ? '+daha fazla' : '+more'}</span>
                 </div>
                 <div style={{ display: 'flex', gap: 10 }}>
-                  <Link href="/parts?brand=Epiroc" className="btn btn-epiroc" style={{ fontSize: 13, padding: '9px 18px' }}>Parcalara Goz At</Link>
-                  <Link href="/drifters?brand=epiroc" className="btn btn-secondary" style={{ fontSize: 13, padding: '9px 18px' }}>Drifterlari Goster</Link>
+                  <Link href="/parts?brand=Epiroc" className="btn btn-epiroc" style={{ fontSize: 13, padding: '9px 18px' }}>{isTr ? 'Parçalara Göz At' : 'Browse Parts'}</Link>
+                  <Link href="/drifters?brand=epiroc" className="btn btn-secondary" style={{ fontSize: 13, padding: '9px 18px' }}>{isTr ? 'Drifterları Göster' : 'Show Drifters'}</Link>
                 </div>
               </div>
             </ScrollReveal>
@@ -411,10 +423,12 @@ export default function HomePage() {
               border: '1px solid rgba(255,192,61,0.25)',
               borderRadius: 99,
               fontFamily: 'var(--font-heading)',
-            }}>Neden FED Mining</span>
-            <h2 style={{ marginBottom: 14, marginTop: 8 }}>Rekabetsiz Basarilarimiz</h2>
+            }}>{isTr ? 'Neden FED Mining' : 'Why FED Mining'}</span>
+            <h2 style={{ marginBottom: 14, marginTop: 8 }}>{isTr ? 'Rekabetsiz Başarılarımız' : 'Our Unmatched Achievements'}</h2>
             <p style={{ maxWidth: 500, margin: '0 auto', fontSize: 16 }}>
-              Operasyonlarinizi optimize etmenin daha verimli bir yolunu mu ariyorsunuz? Uzmanligigimizla yaninizdayiz.
+              {isTr
+                ? 'Operasyonlarınızı optimize etmenin daha verimli bir yolunu mu arıyorsunuz? Uzmanlığımızla yanınızdayız.'
+                : 'Looking for a more efficient way to optimize your operations? We are by your side with our expertise.'}
             </p>
           </ScrollReveal>
 
@@ -436,8 +450,8 @@ export default function HomePage() {
                   }}>
                     <Icon size={24} color={adv.color} />
                   </div>
-                  <h3 style={{ fontSize: 16, marginBottom: 10 }}>{adv.title}</h3>
-                  <p style={{ fontSize: 14, lineHeight: 1.7 }}>{adv.desc}</p>
+                  <h3 style={{ fontSize: 16, marginBottom: 10 }}>{isTr ? adv.titleTr : adv.titleEn}</h3>
+                  <p style={{ fontSize: 14, lineHeight: 1.7 }}>{isTr ? adv.descTr : adv.descEn}</p>
                 </ScrollReveal>
               );
             })}
@@ -453,12 +467,12 @@ export default function HomePage() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 40, flexWrap: 'wrap', gap: 12 }}>
             <div>
               <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: 'var(--primary)', marginBottom: 8, textTransform: 'uppercase', fontFamily: 'var(--font-heading)' }}>
-                Komple Kaya Deliciler
+                {isTr ? 'Komple Kaya Deliciler' : 'Complete Rock Drills'}
               </span>
-              <h2 style={{ marginBottom: 0 }}>Drifter Serimiz</h2>
+              <h2 style={{ marginBottom: 0 }}>{isTr ? 'Drifter Serimiz' : 'Our Drifter Series'}</h2>
             </div>
             <Link href="/drifters" style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--primary)', fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>
-              Tamamini Goster <ChevronRight size={16} />
+              {isTr ? 'Tamamını Göster' : 'Show All'} <ChevronRight size={16} />
             </Link>
           </div>
 
@@ -473,7 +487,7 @@ export default function HomePage() {
                 <Link key={d.model} href={`/drifters?brand=sandvik&model=${d.model}`} style={{ textDecoration: 'none' }}>
                   <div className="card" style={{ padding: '16px 18px', cursor: 'pointer' }}>
                     <div style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-main)', marginBottom: 4, fontFamily: 'var(--font-heading)' }}>{d.model}</div>
-                    <div style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4, marginBottom: 8, background: d.type === 'Surface' ? 'rgba(59,130,246,0.1)' : 'rgba(139,92,246,0.1)', color: d.type === 'Surface' ? '#3b82f6' : '#8b5cf6' }}>{d.type}</div>
+                    <div style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4, marginBottom: 8, background: d.type === 'Surface' ? 'rgba(59,130,246,0.1)' : 'rgba(139,92,246,0.1)', color: d.type === 'Surface' ? '#3b82f6' : '#8b5cf6' }}>{d.type === 'Surface' ? (isTr ? 'Yer Üstü' : 'Surface') : (isTr ? 'Yer Altı' : 'Underground')}</div>
                     <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4 }}>{d.rig}</div>
                     <div style={{ fontSize: 11, color: 'var(--text-dark)' }}>{d.weight}</div>
                   </div>
@@ -493,7 +507,7 @@ export default function HomePage() {
                 <Link key={d.model} href={`/drifters?brand=epiroc&model=${d.model}`} style={{ textDecoration: 'none' }}>
                   <div className="card" style={{ padding: '16px 18px', cursor: 'pointer' }}>
                     <div style={{ fontSize: 17, fontWeight: 800, color: 'var(--text-main)', marginBottom: 4, fontFamily: 'var(--font-heading)' }}>{d.model}</div>
-                    <div style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4, marginBottom: 8, background: d.type === 'Surface' ? 'rgba(59,130,246,0.1)' : 'rgba(139,92,246,0.1)', color: d.type === 'Surface' ? '#3b82f6' : '#8b5cf6' }}>{d.type}</div>
+                    <div style={{ display: 'inline-block', fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 4, marginBottom: 8, background: d.type === 'Surface' ? 'rgba(59,130,246,0.1)' : 'rgba(139,92,246,0.1)', color: d.type === 'Surface' ? '#3b82f6' : '#8b5cf6' }}>{d.type === 'Surface' ? (isTr ? 'Yer Üstü' : 'Surface') : (isTr ? 'Yer Altı' : 'Underground')}</div>
                     <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4 }}>{d.rig}</div>
                     <div style={{ fontSize: 11, color: 'var(--text-dark)' }}>{d.weight}</div>
                   </div>
@@ -527,17 +541,17 @@ export default function HomePage() {
                   <div style={{ display: 'flex', gap: 20 }}>
                     <div style={{ textAlign: 'center' }}>
                       <div style={{ fontSize: 28, fontWeight: 900, color: '#ffc03d', fontFamily: 'var(--font-heading)' }}>30.000+</div>
-                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Parca Numarasi</div>
+                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>{isTr ? 'Parça Numarası' : 'Part Numbers'}</div>
                     </div>
                     <div style={{ width: 1, background: 'rgba(255,255,255,0.2)' }} />
                     <div style={{ textAlign: 'center' }}>
                       <div style={{ fontSize: 28, fontWeight: 900, color: '#ffc03d', fontFamily: 'var(--font-heading)' }}>56+</div>
-                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Is Ortagi</div>
+                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>{isTr ? 'İş Ortağı' : 'Business Partners'}</div>
                     </div>
                     <div style={{ width: 1, background: 'rgba(255,255,255,0.2)' }} />
                     <div style={{ textAlign: 'center' }}>
                       <div style={{ fontSize: 28, fontWeight: 900, color: '#ffc03d', fontFamily: 'var(--font-heading)' }}>5+</div>
-                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>Gunluk Islem</div>
+                      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>{isTr ? 'Günlük İşlem' : 'Daily Transactions'}</div>
                     </div>
                   </div>
                 </div>
@@ -551,12 +565,18 @@ export default function HomePage() {
                 padding: '4px 14px', background: 'rgba(255,192,61,0.1)',
                 border: '1px solid rgba(255,192,61,0.25)', borderRadius: 99,
                 fontFamily: 'var(--font-heading)',
-              }}>Rekabetsiz Basarilarimiz</span>
+              }}>{isTr ? 'Rekabetsiz Başarılarımız' : 'Our Unmatched Achievements'}</span>
               <h2 style={{ marginBottom: 20, lineHeight: 1.2 }}>
-                Operasyonlarinizi Optimize<br />Etmenin Daha Akilli Yolu
+                {isTr ? (
+                  <>Operasyonlarınızı Optimize<br />Etmenin Daha Akıllı Yolu</>
+                ) : (
+                  <>The Smarter Way to Optimize<br />Your Operations</>
+                )}
               </h2>
               <p style={{ fontSize: 16, lineHeight: 1.75, marginBottom: 16 }}>
-                Uzmanligigimiz ve deneyimimize guvenerek size basari icin gerekli olagan ustu parcalari teslim ediyoruz. Operasyonlarinizi bir ust seviyeye tasimaniza yardimci olalim.
+                {isTr
+                  ? 'Uzmanlığımıza ve deneyimimize güvenerek size başarı için gerekli olağanüstü parçaları teslim ediyoruz. Operasyonlarınızı bir üst seviyeye taşımanıza yardımcı olalım.'
+                  : 'Trusting our expertise and experience, we deliver the exceptional parts necessary for your success. Let us help you take your operations to the next level.'}
               </p>
               <p style={{ fontSize: 15, lineHeight: 1.75, marginBottom: 32 }}>
                 FED Mining Solutions and Parts olarak; Turkiye, Sili ve Gana&apos;daki merkezlerimizden 50&apos;den fazla ulkeye hizmet veriyor, her parca icin 400 saatlik revizyon garantisi sunuyoruz.
@@ -591,25 +611,31 @@ export default function HomePage() {
             borderRadius: 99, padding: '6px 16px', marginBottom: 24,
           }}>
             <Zap size={12} color="var(--primary)" />
-            <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--primary)', letterSpacing: '0.1em', fontFamily: 'var(--font-heading)' }}>
-              MUSTERI PORTALI &mdash; MAKINE SAATI TAKIBI
+            <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--primary)', letterSpacing: '0.14em', fontFamily: 'var(--font-heading)' }}>
+              {isTr ? 'MÜŞTERI PORTALI — MAKINE SAATI TAKIBI' : 'CLIENT PORTAL — MACHINE HOUR TRACKING'}
             </span>
           </div>
 
           <h2 style={{ marginBottom: 18, fontSize: 'clamp(1.7rem, 4vw, 2.5rem)', color: '#ffffff' }}>
-            Drifterlarinizi Takip Edin &amp;<br />400 Saatlik Revizyon Zamanini Hic Kacirmayin
+            {isTr ? (
+              <>Drifterlarınızı Takip Edin &amp;<br />400 Saatlik Revizyon Zamanını Hiç Kaçırmayın</>
+            ) : (
+              <>Track Your Drifters &amp;<br />Never Miss Your 400h Overhaul Schedule</>
+            )}
           </h2>
           <p style={{ maxWidth: 520, margin: '0 auto 40px', fontSize: 16, color: 'rgba(255,255,255,0.65)' }}>
-            Makinelerinizi kaydedin. Saatleri biz takip ediyoruz ve revizyon kitlerinizi siz daha ihtiyac duymadan hazirliyor, sizinle paylasiyoruz.
+            {isTr
+              ? 'Makinelerinizi kaydedin. Saatleri biz takip ediyoruz ve revizyon kitlerinizi siz daha ihtiyaç duymadan hazırlıyor, sizinle paylaşıyoruz.'
+              : 'Register your machinery. We track the working hours, pre-stock your overhaul kits before you even need them, and share the logs with you.'}
           </p>
 
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/register" className="btn btn-primary" style={{ fontSize: 15, padding: '14px 30px' }}>
-              Hesap Olustur
+              {isTr ? 'Hesap Oluştur' : 'Create Account'}
               <ArrowRight size={16} />
             </Link>
             <Link href="/contact" className="btn btn-secondary-light" style={{ fontSize: 15, padding: '14px 30px' }}>
-              Satis Ekibiyle Iletisime Gecin
+              {isTr ? 'Satış Ekibiyle İletişime Geçin' : 'Contact Sales Team'}
             </Link>
           </div>
         </div>

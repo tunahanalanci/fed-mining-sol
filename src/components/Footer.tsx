@@ -6,7 +6,8 @@ import { Phone, Mail, MapPin } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isTr = language === 'tr';
 
   return (
     <footer style={{
@@ -36,7 +37,9 @@ export default function Footer() {
               </div>
             </div>
             <p style={{ fontSize: 13, lineHeight: 1.7, maxWidth: 240, color: 'rgba(255,255,255,0.6)' }}>
-              Turkey&apos;dan dunya geneline OEM uyumlu drifter yedek parcalari. Sandvik ve Epiroc icin 400 saatlik revizyon kitleri.
+              {isTr 
+                ? "Türkiye'den dünya geneline OEM uyumlu drifter yedek parçaları. Sandvik ve Epiroc için 400 saatlik revizyon kitleri."
+                : "OEM compatible drifter spare parts shipped globally from Turkey. 400-hour overhaul kits for Sandvik and Epiroc."}
             </p>
             <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
               <a
@@ -68,7 +71,7 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h4 style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', color: '#ffc03d', marginBottom: 16, textTransform: 'uppercase', fontFamily: 'var(--font-heading)' }}>
-              Quick Links
+              {isTr ? 'Hızlı Bağlantılar' : 'Quick Links'}
             </h4>
             {[
               { href: '/productrange', label: t('nav.productrange') },
@@ -94,15 +97,15 @@ export default function Footer() {
           {/* Products */}
           <div>
             <h4 style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', color: '#ffc03d', marginBottom: 16, textTransform: 'uppercase', fontFamily: 'var(--font-heading)' }}>
-              Urunler
+              {isTr ? 'Ürünler' : 'Products'}
             </h4>
             {[
-              'Komple Drifterlar',
-              'Pistonlar ve Silindirler',
-              'Conta Kitleri (400s / 800s)',
-              'Sap Adaptorler',
-              'Donus Motorlari',
-              'Valf Asemblajlari',
+              isTr ? 'Komple Drifterlar' : 'Complete Drifters',
+              isTr ? 'Pistonlar ve Silindirler' : 'Pistons & Cylinders',
+              isTr ? 'Conta Kitleri (400s / 800s)' : 'Seal Kits (400h / 800h)',
+              isTr ? 'Sap Adaptörler' : 'Shank Adapters',
+              isTr ? 'Dönüş Motorları' : 'Rotation Motors',
+              isTr ? 'Valf Asemblajları' : 'Valve Assemblies',
             ].map(p => (
               <div key={p} style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>
                 {p}
@@ -113,7 +116,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h4 style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', color: '#ffc03d', marginBottom: 16, textTransform: 'uppercase', fontFamily: 'var(--font-heading)' }}>
-              Iletisim
+              {isTr ? 'İletişim' : 'Contact'}
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
@@ -162,7 +165,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} FED Mining Solutions and Parts. All rights reserved.
           </p>
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', margin: 0 }}>
-            Turkey &mdash; Worldwide Shipping
+            {isTr ? 'Türkiye — Dünya Geneli Gönderim' : 'Turkey — Worldwide Shipping'}
           </p>
         </div>
       </div>

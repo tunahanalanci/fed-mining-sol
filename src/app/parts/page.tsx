@@ -188,7 +188,8 @@ function PartCard({ part, inBasket, onAdd }: { part: Part; inBasket: boolean; on
 
 /* ─── Part row (list) ─── */
 function PartRow({ part, inBasket, onAdd }: { part: Part; inBasket: boolean; onAdd: () => void }) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isTr = language === 'tr';
   const [imgErr, setImgErr] = useState(false);
 
   return (
@@ -260,7 +261,7 @@ function PartRow({ part, inBasket, onAdd }: { part: Part; inBasket: boolean; onA
             transition: 'all 0.2s',
           }}
         >
-          {inBasket ? <><Check size={13} /> Added</> : <><ShoppingCart size={13} /> Add</>}
+          {inBasket ? <><Check size={13} /> {isTr ? 'Eklendi' : 'Added'}</> : <><ShoppingCart size={13} /> {isTr ? 'Ekle' : 'Add'}</>}
         </button>
       </div>
     </div>
@@ -269,7 +270,8 @@ function PartRow({ part, inBasket, onAdd }: { part: Part; inBasket: boolean; onA
 
 /* ─── Main page ─── */
 function PartsContent() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isTr = language === 'tr';
   const { basket, addToBasket } = useQuote();
   const searchParams = useSearchParams();
 
@@ -333,7 +335,7 @@ function PartsContent() {
         }} />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', color: 'var(--primary)', marginBottom: 8, textTransform: 'uppercase' }}>
-            Spare Parts Catalog
+            {isTr ? 'Yedek Parça Kataloğu' : 'Spare Parts Catalog'}
           </p>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
             <div>
@@ -343,7 +345,7 @@ function PartsContent() {
                   <span style={{ color: 'var(--primary)', fontWeight: 700 }}>{pagination.totalCount}</span> {t('catalog.resultsFound')}
                   {activeFilters.length > 0 && (
                     <span style={{ marginLeft: 6 }}>
-                      — filtered by: {activeFilters.map(f => (
+                      {isTr ? ' — filtrelenen:' : ' — filtered by: '} {activeFilters.map(f => (
                         <span key={String(f)} style={{
                           marginLeft: 4, padding: '1px 7px', borderRadius: 4,
                           background: 'rgba(255,192,61,0.12)', color: 'var(--primary)',
@@ -420,7 +422,7 @@ function PartsContent() {
               style={{ height: 42, gap: 7, fontSize: 13 }}
             >
               <Filter size={14} />
-              More Filters
+              {isTr ? 'Diğer Filtreler' : 'More Filters'}
               {(category !== 'All') && (
                 <span style={{
                   background: 'var(--primary)', color: '#0b0f19',
@@ -462,7 +464,7 @@ function PartsContent() {
               {/* Per page */}
               <div>
                 <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>
-                  Per Page
+                  {isTr ? 'Sayfa Başına' : 'Per Page'}
                 </label>
                 <div style={{ display: 'flex', gap: 5 }}>
                   {LIMITS.map(l => (
@@ -482,7 +484,7 @@ function PartsContent() {
                 <button onClick={() => { setQ(''); setBrand('All'); setCategory('All'); setPage(1); }}
                   style={{ alignSelf: 'flex-end', color: 'var(--danger)', fontSize: 12, cursor: 'pointer' }}>
                   <X size={12} style={{ display: 'inline', marginRight: 4 }} />
-                  Clear all
+                  {isTr ? 'Filtreleri Temizle' : 'Clear all'}
                 </button>
               )}
             </div>
@@ -508,7 +510,7 @@ function PartsContent() {
             <h3 style={{ marginBottom: 8, color: 'var(--text-muted)', fontWeight: 500 }}>{t('catalog.noResults')}</h3>
             <button onClick={() => { setQ(''); setBrand('All'); setCategory('All'); setPage(1); }}
               style={{ color: 'var(--primary)', fontSize: 14, cursor: 'pointer', marginTop: 8 }}>
-              Clear all filters
+              {isTr ? 'Tüm filtreleri temizle' : 'Clear all filters'}
             </button>
           </div>
         ) : viewMode === 'grid' ? (
@@ -611,10 +613,12 @@ function PartsContent() {
 }
 
 export default function PartsPage() {
+  const { language } = useLanguage();
+  const isTr = language === 'tr';
   return (
     <Suspense fallback={
       <div style={{ paddingTop: 120, textAlign: 'center', color: 'var(--text-muted)', padding: '140px 20px' }}>
-        Loading catalog…
+        {isTr ? 'Katalog yükleniyor...' : 'Loading catalog...'}
       </div>
     }>
       <PartsContent />
