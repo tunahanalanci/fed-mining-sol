@@ -33,7 +33,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div style={{ paddingTop: 86 }}>
+    <div style={{ paddingTop: 120 }}>
       {/* Header */}
       <div style={{
         background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-main) 100%)',
@@ -65,8 +65,8 @@ export default function ContactPage() {
                 style={{
                   display: 'flex', alignItems: 'center', gap: 16,
                   padding: '18px 20px', borderRadius: 12,
-                  background: 'rgba(37,211,102,0.1)',
-                  border: '1px solid rgba(37,211,102,0.3)',
+                  background: 'rgba(37,211,102,0.08)',
+                  border: '1px solid rgba(37,211,102,0.25)',
                   textDecoration: 'none',
                   transition: 'all 0.2s',
                 }}
@@ -79,7 +79,7 @@ export default function ContactPage() {
                 }}>📱</div>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: '#25D366', marginBottom: 2 }}>WhatsApp 24/7</div>
-                  <div style={{ fontSize: 15, color: 'var(--text-white)', fontWeight: 600 }}>+90 506 120 87 06</div>
+                  <div style={{ fontSize: 15, color: 'var(--text-main)', fontWeight: 600 }}>+90 506 120 87 06</div>
                   <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Fastest response channel</div>
                 </div>
               </a>
@@ -104,31 +104,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--primary)', marginBottom: 2 }}>Phone</div>
-                  <div style={{ fontSize: 15, color: 'var(--text-white)', fontWeight: 600 }}>+90 506 120 87 06</div>
-                </div>
-              </a>
-
-              <a
-                href="mailto:Info@FedMiningSolutions.com"
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 16,
-                  padding: '18px 20px', borderRadius: 12,
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-color)',
-                  textDecoration: 'none',
-                }}
-              >
-                <div style={{
-                  width: 44, height: 44, borderRadius: 10,
-                  background: 'rgba(255,192,61,0.12)',
-                  border: '1px solid rgba(255,192,61,0.2)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                  <Mail size={20} color="var(--primary)" />
-                </div>
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--primary)', marginBottom: 2 }}>Email</div>
-                  <div style={{ fontSize: 15, color: 'var(--text-white)', fontWeight: 600 }}>Info@FedMiningSolutions.com</div>
+                  <div style={{ fontSize: 15, color: 'var(--text-main)', fontWeight: 600 }}>+90 506 120 87 06</div>
                 </div>
               </a>
 
@@ -148,10 +124,35 @@ export default function ContactPage() {
                   <MapPin size={20} color="var(--primary)" />
                 </div>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--primary)', marginBottom: 2 }}>Address</div>
-                  <div style={{ fontSize: 14, color: 'var(--text-white)', fontWeight: 600, lineHeight: 1.5 }}>
-                    Turkey
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--primary)', marginBottom: 2 }}>Turkey Head Office</div>
+                  <div style={{ fontSize: 14, color: 'var(--text-main)', fontWeight: 600, lineHeight: 1.5 }}>
+                    Zümrüt Mahallesi, 2031. Sokak, No: 12/3, Denizli / Turkey
                   </div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>info@FedMiningSolutions.com</div>
+                </div>
+              </div>
+
+              <div style={{
+                display: 'flex', alignItems: 'flex-start', gap: 16,
+                padding: '18px 20px', borderRadius: 12,
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-color)',
+              }}>
+                <div style={{
+                  width: 44, height: 44, borderRadius: 10,
+                  background: 'rgba(255,192,61,0.12)',
+                  border: '1px solid rgba(255,192,61,0.2)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0,
+                }}>
+                  <MapPin size={20} color="var(--primary)" />
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--primary)', marginBottom: 2 }}>Ghana Branch Office</div>
+                  <div style={{ fontSize: 14, color: 'var(--text-main)', fontWeight: 600, lineHeight: 1.5 }}>
+                    Office # 3, 1st floor, Bethel House, East Legon Hills, Accra / Ghana
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>info.ghana@FedMiningSolutions.com</div>
                 </div>
               </div>
             </div>
@@ -164,7 +165,7 @@ export default function ContactPage() {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
                 <Clock size={16} color="var(--primary)" />
-                <span style={{ fontWeight: 700, fontSize: 14, color: 'var(--text-white)' }}>Business Hours</span>
+                <span style={{ fontWeight: 700, fontSize: 14, color: 'var(--text-main)' }}>Business Hours</span>
               </div>
               {[
                 { day: 'Monday – Friday', hours: '08:00 – 18:00 (GMT+3)', active: true },

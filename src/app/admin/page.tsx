@@ -127,7 +127,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div style={{ paddingTop: 86 }}>
+    <div style={{ paddingTop: 120 }}>
       {/* Header */}
       <div style={{
         background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-main) 100%)',

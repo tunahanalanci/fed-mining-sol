@@ -124,7 +124,7 @@ export default function DashboardPage() {
   const warningCount = drifters.filter(d => getStatus(d.currentHours, d.lastOverhaulHours) === 'warning').length;
 
   return (
-    <div style={{ paddingTop: 86 }}>
+    <div style={{ paddingTop: 120 }}>
       {/* Header */}
       <div style={{
         background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-main) 100%)',

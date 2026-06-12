@@ -57,7 +57,7 @@ export default function RegisterPage() {
     <div style={{
       minHeight: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: '100px 20px 40px',
+      padding: '134px 20px 40px',
       background: 'radial-gradient(circle at 50% 40%, rgba(255,192,61,0.05) 0%, transparent 60%)',
     }}>
       <div style={{ width: '100%', maxWidth: 480 }}>

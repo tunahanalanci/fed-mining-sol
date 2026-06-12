@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
@@ -9,8 +10,8 @@ export default function Footer() {
 
   return (
     <footer style={{
-      background: '#0d1320',
-      borderTop: '3px solid rgba(255,192,61,0.25)',
+      background: '#212d45',
+      borderTop: '3px solid rgba(255,192,61,0.3)',
       paddingTop: 56,
       paddingBottom: 28,
     }}>
@@ -20,22 +21,23 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <div style={{
-                width: 44, height: 44, background: 'var(--primary)', borderRadius: 8,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 900, fontSize: 15, color: '#0b0f19',
-              }}>FED</div>
+              <Image
+                src="/logo.png"
+                alt="FED Mining"
+                width={44}
+                height={44}
+                style={{ borderRadius: 8, objectFit: 'contain' }}
+              />
               <div>
-                <div style={{ fontWeight: 800, fontSize: 16, color: 'var(--text-white)' }}>FED Mining</div>
-                <div style={{ fontSize: 10, color: 'var(--primary)', letterSpacing: '0.08em', fontWeight: 600 }}>
-                  SOLUTIONS & PARTS
+                <div style={{ fontWeight: 800, fontSize: 16, color: '#ffffff', fontFamily: 'var(--font-heading)' }}>FED Mining</div>
+                <div style={{ fontSize: 10, color: 'var(--primary)', letterSpacing: '0.08em', fontWeight: 700, fontFamily: 'var(--font-heading)' }}>
+                  SOLUTIONS &amp; PARTS
                 </div>
               </div>
             </div>
-            <p style={{ fontSize: 13, lineHeight: 1.7, maxWidth: 240 }}>
-              {t('home.heroSub').substring(0, 100)}...
+            <p style={{ fontSize: 13, lineHeight: 1.7, maxWidth: 240, color: 'rgba(255,255,255,0.6)' }}>
+              Turkey&apos;dan dunya geneline OEM uyumlu drifter yedek parcalari. Sandvik ve Epiroc icin 400 saatlik revizyon kitleri.
             </p>
-            {/* Social */}
             <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
               <a
                 href="https://wa.me/905061208706"
@@ -45,31 +47,35 @@ export default function Footer() {
                   width: 36, height: 36, borderRadius: 8,
                   background: '#25D366', display: 'flex',
                   alignItems: 'center', justifyContent: 'center',
-                  fontSize: 16,
+                  fontSize: 16, textDecoration: 'none',
                 }}
                 title="WhatsApp"
-              >📱</a>
+              >&#128241;</a>
               <a
                 href="mailto:Info@FedMiningSolutions.com"
                 style={{
                   width: 36, height: 36, borderRadius: 8,
-                  background: 'var(--secondary)', display: 'flex',
+                  background: 'rgba(255,255,255,0.1)', display: 'flex',
                   alignItems: 'center', justifyContent: 'center',
-                  fontSize: 16, border: '1px solid var(--border-color)',
+                  fontSize: 16, border: '1px solid rgba(255,255,255,0.15)',
+                  textDecoration: 'none',
                 }}
                 title="Email"
-              >✉️</a>
+              >&#9993;</a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.06em', color: 'var(--text-white)', marginBottom: 16, textTransform: 'uppercase' }}>
+            <h4 style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', color: '#ffc03d', marginBottom: 16, textTransform: 'uppercase', fontFamily: 'var(--font-heading)' }}>
               Quick Links
             </h4>
             {[
+              { href: '/productrange', label: t('nav.productrange') },
               { href: '/parts', label: t('nav.parts') },
               { href: '/drifters', label: t('nav.drifters') },
+              { href: '/operations', label: t('nav.operations') },
+              { href: '/industries', label: t('nav.industries') },
               { href: '/about', label: t('nav.about') },
               { href: '/contact', label: t('nav.contact') },
               { href: '/dashboard', label: t('nav.dashboard') },
@@ -78,8 +84,8 @@ export default function Footer() {
                 key={l.href}
                 href={l.href}
                 style={{
-                  display: 'block', fontSize: 14, color: 'rgba(255,255,255,0.55)',
-                  marginBottom: 8, transition: 'color 0.2s',
+                  display: 'block', fontSize: 13, color: 'rgba(255,255,255,0.55)',
+                  marginBottom: 8, transition: 'color 0.2s', textDecoration: 'none',
                 }}
               >{l.label}</Link>
             ))}
@@ -87,16 +93,16 @@ export default function Footer() {
 
           {/* Products */}
           <div>
-            <h4 style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.06em', color: 'var(--text-white)', marginBottom: 16, textTransform: 'uppercase' }}>
-              Products
+            <h4 style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', color: '#ffc03d', marginBottom: 16, textTransform: 'uppercase', fontFamily: 'var(--font-heading)' }}>
+              Urunler
             </h4>
             {[
-              'Complete Drifters',
-              'Pistons & Cylinders',
-              'Seal Kits (400h / 800h)',
-              'Shank Adapters',
-              'Rotation Motors',
-              'Valve Assemblies',
+              'Komple Drifterlar',
+              'Pistonlar ve Silindirler',
+              'Conta Kitleri (400s / 800s)',
+              'Sap Adaptorler',
+              'Donus Motorlari',
+              'Valf Asemblajlari',
             ].map(p => (
               <div key={p} style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>
                 {p}
@@ -106,22 +112,22 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.06em', color: 'var(--text-white)', marginBottom: 16, textTransform: 'uppercase' }}>
-              Contact
+            <h4 style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', color: '#ffc03d', marginBottom: 16, textTransform: 'uppercase', fontFamily: 'var(--font-heading)' }}>
+              Iletisim
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                <MapPin size={15} color="var(--primary)" style={{ marginTop: 2, flexShrink: 0 }} />
+                <MapPin size={15} color="#ffc03d" style={{ marginTop: 2, flexShrink: 0 }} />
                 <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>
-                  Turkey
+                  Denizli, Turkey
                 </span>
               </div>
-              <a href="tel:+905061208706" style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>
-                <Phone size={15} color="var(--primary)" />
+              <a href="tel:+905061208706" style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 13, color: 'rgba(255,255,255,0.55)', textDecoration: 'none' }}>
+                <Phone size={15} color="#ffc03d" />
                 +90 506 120 87 06
               </a>
-              <a href="mailto:Info@FedMiningSolutions.com" style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>
-                <Mail size={15} color="var(--primary)" />
+              <a href="mailto:Info@FedMiningSolutions.com" style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 13, color: 'rgba(255,255,255,0.55)', textDecoration: 'none' }}>
+                <Mail size={15} color="#ffc03d" />
                 Info@FedMiningSolutions.com
               </a>
               <a
@@ -133,10 +139,10 @@ export default function Footer() {
                   background: '#25D366', color: '#fff',
                   padding: '8px 16px', borderRadius: 6,
                   fontSize: 13, fontWeight: 600,
-                  marginTop: 4,
+                  marginTop: 4, textDecoration: 'none',
                 }}
               >
-                WhatsApp 24/7 Support
+                WhatsApp 24/7
               </a>
             </div>
           </div>
@@ -152,11 +158,11 @@ export default function Footer() {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>
-            © {new Date().getFullYear()} FED Mining Solutions and Parts (FED MADENCİLİK MAKİNA İTH. İHR. SAN. TİC. LTD.). All rights reserved.
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', margin: 0 }}>
+            &copy; {new Date().getFullYear()} FED Mining Solutions and Parts. All rights reserved.
           </p>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)' }}>
-            Turkey — Worldwide Shipping
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', margin: 0 }}>
+            Turkey &mdash; Worldwide Shipping
           </p>
         </div>
       </div>

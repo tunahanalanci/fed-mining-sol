@@ -50,3 +50,7 @@ prisma/dev.db
 # Raw source docs (keep out of repo)
 *.pdf
 pdf_extracted.txt
+
+# Scratch and Scrapes
+/scratch/
+/wordpress/

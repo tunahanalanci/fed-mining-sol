@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { ShoppingCart, Menu, X, Globe, LogIn, LayoutDashboard, Shield, LogOut } from 'lucide-react';
+import { ShoppingCart, Menu, X, Globe, LogIn, LayoutDashboard, Shield, LogOut, Phone, Mail } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useQuote } from '@/context/QuoteContext';
 
@@ -48,209 +48,256 @@ export default function Navbar() {
 
   const basketCount = basket.reduce((s, i) => s + i.quantity, 0);
 
+  const isTransparent = pathname === '/';
+
+  const navbarBg = isTransparent && !scrolled ? 'transparent' : 'rgba(255, 255, 255, 0.97)';
+  const navbarBorder = isTransparent && !scrolled ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid var(--border-color)';
+  const logoTextColor = isTransparent && !scrolled ? '#ffffff' : 'var(--text-main)';
+  const navLinkColor = isTransparent && !scrolled ? 'rgba(255, 255, 255, 0.9)' : '#4b4f58';
+  const navLinkActiveBg = isTransparent && !scrolled ? 'rgba(255, 192, 61, 0.25)' : 'rgba(255, 192, 61, 0.12)';
+  const controlBtnBorder = isTransparent && !scrolled ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid var(--border-color)';
+  const controlBtnColor = isTransparent && !scrolled ? 'rgba(255, 255, 255, 0.9)' : 'var(--text-muted)';
+
   const navLinks = [
     { href: '/', label: t('nav.home') },
+    { href: '/productrange', label: t('nav.productrange') },
     { href: '/parts', label: t('nav.parts') },
     { href: '/drifters', label: t('nav.drifters') },
+    { href: '/operations', label: t('nav.operations') },
+    { href: '/industries', label: t('nav.industries') },
     { href: '/about', label: t('nav.about') },
     { href: '/contact', label: t('nav.contact') },
   ];
 
   return (
-    <nav
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        height: '70px',
-        background: 'rgba(255, 255, 255, 0.97)',
-        backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid var(--border-color)',
-        boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
-        transition: 'box-shadow 0.3s ease',
-      }}
-    >
-      <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <div style={{
-            width: 40, height: 40, background: 'var(--primary)', borderRadius: 8,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 900, fontSize: 14, color: '#0b0f19', letterSpacing: '-0.5px'
-          }}>FED</div>
-          <div>
-            <div style={{ fontWeight: 800, fontSize: 15, color: 'var(--text-main)', lineHeight: 1.1 }}>
-              FED Mining
-            </div>
-            <div style={{ fontSize: 10, color: 'var(--primary)', letterSpacing: '0.08em', fontWeight: 600 }}>
-              SOLUTIONS & PARTS
-            </div>
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}>
+
+      {/* Top Info Bar — WordPress kurumsal site kimliginden esinlendi */}
+      <div style={{
+        background: '#212d45',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        padding: '6px 0',
+        display: scrolled ? 'none' : 'block',
+        transition: 'all 0.3s ease',
+      }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            <a href="tel:+905061208706" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'rgba(255,255,255,0.75)', fontWeight: 400, textDecoration: 'none' }}>
+              <Phone size={11} color="#ffc03d" />
+              +90 506 120 87 06
+            </a>
+            <a href="mailto:Info@FedMiningSolutions.com" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'rgba(255,255,255,0.75)', fontWeight: 400, textDecoration: 'none' }} className="desktop-nav">
+              <Mail size={11} color="#ffc03d" />
+              Info@FedMiningSolutions.com
+            </a>
           </div>
-        </Link>
-
-        {/* Desktop Nav Links */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }} className="desktop-nav">
-          {navLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              style={{
-                padding: '7px 14px',
-                borderRadius: 6,
-                fontSize: 14,
-                fontWeight: 500,
-                color: pathname === link.href ? 'var(--primary)' : '#475569',
-                background: pathname === link.href ? 'rgba(255,192,61,0.1)' : 'transparent',
-                transition: 'all 0.2s ease',
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Right Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          {/* Language Toggle */}
-          <button
-            onClick={() => setLanguage(language === 'tr' ? 'en' : 'tr')}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 5,
-              padding: '6px 10px', borderRadius: 6,
-              border: '1px solid var(--border-color)',
-              fontSize: 12, fontWeight: 600,
-              color: 'var(--text-muted)',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <Globe size={13} />
-            {language === 'tr' ? 'TR' : 'EN'}
-          </button>
-
-          {/* Quote Basket */}
-          <button
-            onClick={() => setIsBasketOpen(true)}
-            style={{
-              position: 'relative',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              width: 38, height: 38, borderRadius: 8,
-              border: '1px solid var(--border-color)',
-              color: basketCount > 0 ? 'var(--primary)' : 'var(--text-muted)',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <ShoppingCart size={16} />
-            {basketCount > 0 && (
-              <span style={{
-                position: 'absolute', top: -4, right: -4,
-                background: 'var(--primary)', color: '#0b0f19',
-                width: 17, height: 17, borderRadius: '50%',
-                fontSize: 9, fontWeight: 800,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}>{basketCount}</span>
-            )}
-          </button>
-
-          {/* Auth */}
-          {user ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <Link
-                href={user.role === 'admin' ? '/admin' : '/dashboard'}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 6,
-                  padding: '7px 12px', borderRadius: 6,
-                  fontSize: 13, fontWeight: 600,
-                  color: 'var(--primary)',
-                  border: '1px solid rgba(255,192,61,0.3)',
-                }}
-              >
-                {user.role === 'admin' ? <Shield size={14} /> : <LayoutDashboard size={14} />}
-                <span className="desktop-nav">{user.role === 'admin' ? t('nav.admin') : t('nav.dashboard')}</span>
-              </Link>
-              <button
-                onClick={handleLogout}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 5,
-                  padding: '7px 10px', borderRadius: 6,
-                  fontSize: 12, color: 'var(--text-muted)',
-                  border: '1px solid var(--border-color)',
-                  cursor: 'pointer',
-                }}
-              >
-                <LogOut size={13} />
-              </button>
-            </div>
-          ) : (
-            <Link
-              href="/login"
-              className="btn btn-primary"
-              style={{ padding: '7px 16px', fontSize: 13, gap: 6, borderRadius: 6 }}
-            >
-              <LogIn size={14} />
-              <span className="desktop-nav">{t('nav.login')}</span>
-            </Link>
-          )}
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="mobile-only"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            style={{
-              width: 38, height: 38,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              borderRadius: 6, border: '1px solid var(--border-color)',
-              color: 'var(--text-main)', cursor: 'pointer',
-            }}
-          >
-            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+          <div>
+            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', fontWeight: 400 }}>
+              Turkey &mdash; Worldwide Shipping
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileOpen && (
-        <div style={{
-          position: 'absolute', top: 70, left: 0, right: 0,
-          background: 'rgba(255,255,255,0.99)',
-          borderBottom: '1px solid var(--border-color)',
-          boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
-          padding: '12px 20px 20px',
-        }}>
-          {navLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
+      {/* Main Navbar */}
+      <nav style={{
+        height: '70px',
+        background: navbarBg,
+        backdropFilter: isTransparent && !scrolled ? 'none' : 'blur(16px)',
+        borderBottom: navbarBorder,
+        boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
+        transition: 'all 0.3s ease',
+      }}>
+        <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+
+          {/* Logo */}
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+            <Image
+              src="/logo.png"
+              alt="FED Mining Solutions and Parts"
+              width={44}
+              height={44}
+              style={{ borderRadius: 6, objectFit: 'contain' }}
+              priority
+            />
+            <div>
+              <div style={{ fontWeight: 800, fontSize: 15, color: logoTextColor, lineHeight: 1.1, fontFamily: 'var(--font-heading)', transition: 'color 0.3s ease' }}>
+                FED Mining
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--primary)', letterSpacing: '0.08em', fontWeight: 700, fontFamily: 'var(--font-heading)' }}>
+                SOLUTIONS &amp; PARTS
+              </div>
+            </div>
+          </Link>
+
+          {/* Desktop Nav Links */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 2 }} className="desktop-nav">
+            {navLinks.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  fontFamily: 'var(--font-heading)',
+                  color: pathname === link.href ? 'var(--primary)' : navLinkColor,
+                  background: pathname === link.href ? navLinkActiveBg : 'transparent',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Right Controls */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {/* Language Toggle */}
+            <button
+              onClick={() => setLanguage(language === 'tr' ? 'en' : 'tr')}
               style={{
-                display: 'block', padding: '12px 0',
-                borderBottom: '1px solid var(--border-color)',
-                fontSize: 15, fontWeight: 500,
-                color: pathname === link.href ? 'var(--primary)' : '#334155',
+                display: 'flex', alignItems: 'center', gap: 5,
+                padding: '6px 10px', borderRadius: 6,
+                border: controlBtnBorder,
+                fontSize: 12, fontWeight: 600,
+                color: controlBtnColor,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                background: 'transparent',
               }}
             >
-              {link.label}
-            </Link>
-          ))}
-          {user && (
-            <Link
-              href={user.role === 'admin' ? '/admin' : '/dashboard'}
-              onClick={() => setMobileOpen(false)}
+              <Globe size={13} />
+              {language === 'tr' ? 'TR' : 'EN'}
+            </button>
+
+            {/* Quote Basket */}
+            <button
+              onClick={() => setIsBasketOpen(true)}
               style={{
-                display: 'block', padding: '12px 0',
-                borderBottom: '1px solid var(--border-color)',
-                fontSize: 15, fontWeight: 500,
-                color: 'var(--primary)',
+                position: 'relative',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                width: 38, height: 38, borderRadius: 8,
+                border: controlBtnBorder,
+                color: basketCount > 0 ? 'var(--primary)' : controlBtnColor,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                background: 'transparent',
               }}
             >
-              {user.role === 'admin' ? t('nav.admin') : t('nav.dashboard')}
-            </Link>
-          )}
+              <ShoppingCart size={16} />
+              {basketCount > 0 && (
+                <span style={{
+                  position: 'absolute', top: -4, right: -4,
+                  background: 'var(--primary)', color: '#212d45',
+                  width: 17, height: 17, borderRadius: '50%',
+                  fontSize: 9, fontWeight: 800,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>{basketCount}</span>
+              )}
+            </button>
+
+            {/* Auth */}
+            {user ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Link
+                  href={user.role === 'admin' ? '/admin' : '/dashboard'}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 6,
+                    padding: '7px 12px', borderRadius: 6,
+                    fontSize: 13, fontWeight: 600,
+                    color: 'var(--primary)',
+                    border: '1px solid rgba(255,192,61,0.3)',
+                  }}
+                >
+                  {user.role === 'admin' ? <Shield size={14} /> : <LayoutDashboard size={14} />}
+                  <span className="desktop-nav">{user.role === 'admin' ? t('nav.admin') : t('nav.dashboard')}</span>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 5,
+                    padding: '7px 10px', borderRadius: 6,
+                    fontSize: 12, color: controlBtnColor,
+                    border: controlBtnBorder,
+                    cursor: 'pointer',
+                    background: 'transparent',
+                  }}
+                >
+                  <LogOut size={13} />
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="btn btn-primary"
+                style={{ padding: '7px 16px', fontSize: 13, gap: 6, borderRadius: 6 }}
+              >
+                <LogIn size={14} />
+                <span className="desktop-nav">{t('nav.login')}</span>
+              </Link>
+            )}
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="mobile-only"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              style={{
+                width: 38, height: 38,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                borderRadius: 6, border: controlBtnBorder,
+                color: logoTextColor, cursor: 'pointer',
+                background: 'transparent',
+              }}
+            >
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </div>
-      )}
+
+        {/* Mobile Menu */}
+        {mobileOpen && (
+          <div style={{
+            position: 'absolute', top: 70, left: 0, right: 0,
+            background: 'rgba(255,255,255,0.99)',
+            borderBottom: '1px solid var(--border-color)',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+            padding: '12px 20px 20px',
+          }}>
+            {navLinks.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  display: 'block', padding: '12px 0',
+                  borderBottom: '1px solid var(--border-color)',
+                  fontSize: 15, fontWeight: 600,
+                  fontFamily: 'var(--font-heading)',
+                  color: pathname === link.href ? 'var(--primary)' : '#4b4f58',
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
+            {user && (
+              <Link
+                href={user.role === 'admin' ? '/admin' : '/dashboard'}
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  display: 'block', padding: '12px 0',
+                  borderBottom: '1px solid var(--border-color)',
+                  fontSize: 15, fontWeight: 600,
+                  color: 'var(--primary)',
+                }}
+              >
+                {user.role === 'admin' ? t('nav.admin') : t('nav.dashboard')}
+              </Link>
+            )}
+          </div>
+        )}
+      </nav>
 
       <style>{`
         @media (max-width: 768px) {
@@ -261,6 +308,6 @@ export default function Navbar() {
           .mobile-only { display: none !important; }
         }
       `}</style>
-    </nav>
+    </div>
   );
 }
