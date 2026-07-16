@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { ShoppingCart, Menu, X, Globe, LogIn, LayoutDashboard, Shield, LogOut, Phone, Mail } from 'lucide-react';
+import { ShoppingCart, Menu, X, Globe, LogIn, LayoutDashboard, Shield, LogOut, Phone, Mail, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useQuote } from '@/context/QuoteContext';
 
@@ -58,15 +58,44 @@ export default function Navbar() {
   const controlBtnBorder = isTransparent && !scrolled ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid var(--border-color)';
   const controlBtnColor = isTransparent && !scrolled ? 'rgba(255, 255, 255, 0.9)' : 'var(--text-muted)';
 
-  const navLinks = [
-    { href: '/', label: t('nav.home') },
-    { href: '/productrange', label: t('nav.productrange') },
-    { href: '/parts', label: t('nav.parts') },
-    { href: '/drifters', label: t('nav.drifters') },
-    { href: '/operations', label: t('nav.operations') },
-    { href: '/industries', label: t('nav.industries') },
-    { href: '/about', label: t('nav.about') },
-    { href: '/contact', label: t('nav.contact') },
+  const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
+
+  const isDropdownActive = (items: { href: string }[]) => {
+    return items.some(item => {
+      const [path] = item.href.split('?');
+      return pathname === path;
+    });
+  };
+
+  const menuStructure: Array<
+    | { type: 'link'; href: string; label: string }
+    | { type: 'dropdown'; id: string; label: string; items: Array<{ href: string; label: string }> }
+  > = [
+    { type: 'link', href: '/', label: t('nav.home') },
+    {
+      type: 'dropdown',
+      id: 'product-range',
+      label: t('nav.productrange'),
+      items: [
+        { href: '/drifters', label: t('nav.drifters') },
+        { href: '/productrange', label: t('nav.machinespareparts') },
+        { href: '/parts?category=Shank%20Adapter', label: t('nav.drilling') },
+        { href: '/parts?category=Valve', label: t('nav.hyraulicbreaker') },
+      ]
+    },
+    {
+      type: 'dropdown',
+      id: 'services',
+      label: t('nav.services'),
+      items: [
+        { href: '/operations', label: t('nav.driftertestbench') },
+        { href: '/about', label: t('nav.mobileconteiner') },
+      ]
+    },
+    { type: 'link', href: '/parts', label: t('nav.parts') },
+    { type: 'link', href: '/about', label: t('nav.about') },
+    { type: 'link', href: '/contact', label: t('nav.contact') },
   ];
 
   return (
@@ -131,25 +160,121 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 2 }} className="desktop-nav">
-            {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                style={{
-                  padding: '6px 10px',
-                  borderRadius: 6,
-                  fontSize: 13,
-                  fontWeight: 600,
-                  fontFamily: 'var(--font-heading)',
-                  color: pathname === link.href ? 'var(--primary)' : navLinkColor,
-                  background: pathname === link.href ? navLinkActiveBg : 'transparent',
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }} className="desktop-nav">
+            {menuStructure.map(item => {
+              if (item.type === 'link') {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    style={{
+                      padding: '6px 12px',
+                      borderRadius: 6,
+                      fontSize: 13,
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-heading)',
+                      color: isActive ? 'var(--primary)' : navLinkColor,
+                      background: isActive ? navLinkActiveBg : 'transparent',
+                      transition: 'all 0.2s ease',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              }
+
+              // Dropdown
+              const isDropdownOpen = hoveredDropdown === item.id;
+              const isActive = isDropdownActive(item.items);
+
+              return (
+                <div
+                  key={item.id}
+                  onMouseEnter={() => setHoveredDropdown(item.id)}
+                  onMouseLeave={() => setHoveredDropdown(null)}
+                  style={{ position: 'relative', padding: '10px 0' }}
+                >
+                  <button
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      padding: '6px 12px',
+                      borderRadius: 6,
+                      fontSize: 13,
+                      fontWeight: 600,
+                      fontFamily: 'var(--font-heading)',
+                      color: isActive ? 'var(--primary)' : navLinkColor,
+                      background: isActive ? navLinkActiveBg : 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown
+                      size={14}
+                      style={{
+                        transform: isDropdownOpen ? 'rotate(180deg)' : 'rotate(0)',
+                        transition: 'transform 0.2s ease',
+                      }}
+                    />
+                  </button>
+
+                  {/* Dropdown Menu Container */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      background: '#ffffff',
+                      border: '1px solid var(--border-color)',
+                      borderRadius: 8,
+                      padding: '8px 0',
+                      minWidth: '220px',
+                      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      zIndex: 100,
+                      opacity: isDropdownOpen ? 1 : 0,
+                      transform: isDropdownOpen ? 'translateY(0)' : 'translateY(8px)',
+                      pointerEvents: isDropdownOpen ? 'auto' : 'none',
+                      transition: 'opacity 0.2s ease, transform 0.2s ease',
+                    }}
+                  >
+                    {item.items.map(subItem => {
+                      const isSubActive = pathname === subItem.href.split('?')[0];
+                      return (
+                        <Link
+                          key={subItem.href}
+                          href={subItem.href}
+                          style={{
+                            padding: '10px 16px',
+                            fontSize: 13,
+                            fontWeight: 500,
+                            color: isSubActive ? 'var(--primary)' : '#212d45',
+                            background: isSubActive ? 'rgba(255, 192, 61, 0.08)' : 'transparent',
+                            transition: 'all 0.15s ease',
+                            textDecoration: 'none',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(255, 192, 61, 0.08)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = isSubActive ? 'rgba(255, 192, 61, 0.08)' : 'transparent';
+                          }}
+                        >
+                          {subItem.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           {/* Right Controls */}
@@ -264,23 +389,74 @@ export default function Navbar() {
             borderBottom: '1px solid var(--border-color)',
             boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
             padding: '12px 20px 20px',
+            maxHeight: 'calc(100vh - 70px)',
+            overflowY: 'auto',
           }}>
-            {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  display: 'block', padding: '12px 0',
-                  borderBottom: '1px solid var(--border-color)',
-                  fontSize: 15, fontWeight: 600,
-                  fontFamily: 'var(--font-heading)',
-                  color: pathname === link.href ? 'var(--primary)' : '#4b4f58',
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {menuStructure.map(item => {
+              if (item.type === 'link') {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    style={{
+                      display: 'block', padding: '12px 0',
+                      borderBottom: '1px solid var(--border-color)',
+                      fontSize: 15, fontWeight: 600,
+                      fontFamily: 'var(--font-heading)',
+                      color: isActive ? 'var(--primary)' : '#4b4f58',
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              } else {
+                const isSubOpen = mobileDropdownOpen === item.id;
+                const isActive = isDropdownActive(item.items);
+                return (
+                  <div key={item.id} style={{ borderBottom: '1px solid var(--border-color)', padding: '12px 0' }}>
+                    <button
+                      onClick={() => setMobileDropdownOpen(isSubOpen ? null : item.id)}
+                      style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        width: '100%', background: 'none', border: 'none', padding: 0,
+                        fontSize: 15, fontWeight: 600, fontFamily: 'var(--font-heading)',
+                        color: isActive ? 'var(--primary)' : '#4b4f58', cursor: 'pointer',
+                      }}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown size={16} style={{
+                        transform: isSubOpen ? 'rotate(180deg)' : 'rotate(0)',
+                        transition: 'transform 0.2s ease',
+                        color: '#4b4f58',
+                      }} />
+                    </button>
+                    {isSubOpen && (
+                      <div style={{ paddingLeft: 12, marginTop: 8, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        {item.items.map(subItem => {
+                          const isSubActive = pathname === subItem.href.split('?')[0];
+                          return (
+                            <Link
+                              key={subItem.href}
+                              href={subItem.href}
+                              onClick={() => setMobileOpen(false)}
+                              style={{
+                                display: 'block', padding: '8px 0',
+                                fontSize: 14, fontWeight: 500,
+                                color: isSubActive ? 'var(--primary)' : 'var(--text-muted)',
+                              }}
+                            >
+                              {subItem.label}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+            })}
             {user && (
               <Link
                 href={user.role === 'admin' ? '/admin' : '/dashboard'}
