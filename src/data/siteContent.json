@@ -1,0 +1,69 @@
+{
+  "hero": {
+    "subtitleEn": "Achieve Your Dream and Inspire",
+    "subtitleTr": "Hayalinizi Gerçekleştirin ve İlham Verin",
+    "titleEn": "MINING SOLUTIONS AND PARTS",
+    "titleTr": "MADENCİLİK ÇÖZÜMLERİ VE YEDEK PARÇALAR",
+    "descEn": "Exceed industry standards with advanced techniques to optimize your operations. Trust us for exceptional parts for success.",
+    "descTr": "Operasyonlarınızı optimize etmek için gelişmiş tekniklerle endüstri standartlarını aşın. Başarı için olağanüstü parçalar konusunda bize güvenin.",
+    "imageUrl": "/hero-mining.png"
+  },
+  "statsSection": {
+    "subtitleEn": "Our Undefeated Success",
+    "subtitleTr": "Yenilmez Başarımız",
+    "titleEn": "Are you looking for a more efficient way to optimize your operations?",
+    "titleTr": "Operasyonlarınızı optimize etmenin daha verimli bir yolunu mu arıyorsunuz?",
+    "descEn": "Trust in our expertise and experience to deliver exceptional parts that can help set you up for success. Let us help you take your operations to the next level.",
+    "descTr": "Başarıya ulaşmanıza yardımcı olacak olağanüstü parçaları sunmak için uzmanlığımıza ve deneyimimize güvenin. Operasyonlarınızı bir üst seviyeye taşımanıza yardımcı olalım.",
+    "stat1Value": "30.000+",
+    "stat1LabelEn": "Accessible Part Numbers",
+    "stat1LabelTr": "Erişilebilir Parça Numarası",
+    "stat2Value": "56+",
+    "stat2LabelEn": "Reputable Business Partners",
+    "stat2LabelTr": "Saygın İş Ortağı",
+    "stat3Value": "5+",
+    "stat3LabelEn": "Daily Operation",
+    "stat3LabelTr": "Günlük Operasyon"
+  },
+  "sustainability": {
+    "subtitleEn": "Sustainability",
+    "subtitleTr": "Sürdürülebilirlik",
+    "titleEn": "Committed To Keep People Healthy & Safe",
+    "titleTr": "İnsanları Sağlıklı ve Güvende Tutmaya Kararlıyız",
+    "descEn": "Our goal is to help people stay healthy and safe, and we are committed to constantly finding new ways to support well-being worldwide. Let's work together to achieve a world where everyone can live their best lives.",
+    "descTr": "Amacımız insanların sağlıklı ve güvende kalmasına yardımcı olmaktır ve dünya çapında refahı desteklemek için sürekli yeni yollar bulmaya kararlıyız. Herkesin en iyi hayatını yaşayabileceği bir dünyaya ulaşmak için birlikte çalışalım.",
+    "bullet1En": "Sustainability",
+    "bullet1Tr": "Sürdürülebilirlik",
+    "bullet2En": "Project On Time",
+    "bullet2Tr": "Zamanında Proje Teslimi",
+    "bullet3En": "Modern Technology",
+    "bullet3Tr": "Modern Teknoloji",
+    "bullet4En": "Latest Designs",
+    "bullet4Tr": "En Yeni Tasarımlar"
+  },
+  "products": {
+    "engineTitleEn": "ENGINE UNITS",
+    "engineTitleTr": "MOTOR ÜNİTELERİ",
+    "engineDescEn": "Fed Mining Solutions and Parts provides OEM quality engine parts that meet OEM specifications. Our parts ensure high performance and durability, backed by an extensive warranty. Trust us for the best engine parts in the market today.",
+    "engineDescTr": "Fed Mining Solutions and Parts, orijinal OEM spesifikasyonlarını karşılayan OEM kalitesinde motor parçaları sunar. Parçalarımız, kapsamlı bir garantiyle desteklenen yüksek performans ve dayanıklılık sağlar. Bugün pazardaki en iyi motor parçaları için bize güvenin.",
+    "engineImg": "/engine_unit.png",
+    
+    "powertrainTitleEn": "POWERTRAIN",
+    "powertrainTitleTr": "ŞANZIMAN VE GÜÇ AKTARIMI",
+    "powertrainDescEn": "Believe in delivering the highest quality transmission/powertrain products to help our customers achieve unparalleled results. With Fed Mining Solutions, you can be confident that you are receiving the finest transmission/powertrain products on the market.",
+    "powertrainDescTr": "Müşterilerimizin benzersiz sonuçlar elde etmesine yardımcı olmak için en yüksek kalitede şanzıman/güç aktarma organı ürünleri sunmaya inanıyoruz. Fed Mining Solutions ile piyasadaki en iyi şanzıman/güç aktarma organı ürünlerini alacağınızdan emin olabilirsiniz.",
+    "powertrainImg": "/about-us-2.png",
+    
+    "hydraulicTitleEn": "HYDRAULIC",
+    "hydraulicTitleTr": "HİDROLİK SİSTEMLER",
+    "hydraulicDescEn": "High-performance hydraulic pumps, valves, cylinders, and seal kits designed for extreme pressure and field durability. Tested for maximum reliability in rock drilling and mining operations.",
+    "hydraulicDescTr": "Zorlu basınç koşullarında ve saha ortamında yüksek performans göstermesi için tasarlanmış hidrolik pompalar, valfler, silindirler ve sızdırmazlık kitleri. Kaya delme ve madencilik faaliyetlerinde maksimum güvenilirlik için test edilmiştir.",
+    "hydraulicImg": "/service-1.png",
+    
+    "drifterTitleEn": "DRIFTER & DRILLER PARTS",
+    "drifterTitleTr": "KAYA DELİCİ VE MATKAP PARÇALARI",
+    "drifterDescEn": "Fed Mining Solutions, we partner with top manufacturers to provide you with high-quality industrial bearings and drifter parts. We're committed to delivering performance and reliability, with a wide selection and prompt order fulfillment. Choose Fed as your partner for success.",
+    "drifterDescTr": "Kaya deliciler (drifterlar) için yüksek kaliteli bileşenler ve yedek parçalar sağlamak üzere lider üreticilerle ortaklık kuruyoruz. Geniş ürün yelpazemiz ve hızlı sipariş teslimatımızla performans ve güvenilirlik sunmaya kararlıyız. Başarı ortağınız olarak FED'i seçin.",
+    "drifterImg": "/drifter.png"
+  }
+}

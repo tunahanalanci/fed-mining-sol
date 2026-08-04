@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Package, Users, FileText, AlertTriangle, Plus, RefreshCw, CheckCircle, Eye } from 'lucide-react';
+import { Package, Users, FileText, AlertTriangle, Plus, RefreshCw, CheckCircle, Eye, LayoutGrid, Save } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface Stats {
@@ -33,14 +33,21 @@ interface DrifterAlert {
 }
 
 export default function AdminPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isTr = language === 'tr';
   const router = useRouter();
 
   const [stats, setStats] = useState<Stats | null>(null);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [alerts, setAlerts] = useState<DrifterAlert[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'quotes' | 'parts' | 'alerts'>('quotes');
+  const [activeTab, setActiveTab] = useState<'quotes' | 'parts' | 'content'>('quotes');
+
+  // Site Content state
+  const [siteContent, setSiteContent] = useState<any>(null);
+  const [contentSaving, setContentSaving] = useState(false);
+  const [contentSuccess, setContentSuccess] = useState('');
+  const [contentError, setContentError] = useState('');
 
   // New Part Form
   const [newPart, setNewPart] = useState({
@@ -60,14 +67,16 @@ export default function AdminPage() {
           return;
         }
 
-        // Fetch stats in parallel
-        const [partsRes, quotesRes] = await Promise.all([
+        // Fetch stats & site content in parallel
+        const [partsRes, quotesRes, contentRes] = await Promise.all([
           fetch('/api/parts?limit=1'),
           fetch('/api/quotes?limit=50'),
+          fetch('/api/content'),
         ]);
 
         const partsData = await partsRes.json();
         const quotesData = await quotesRes.json();
+        const contentData = await contentRes.json();
 
         setStats({
           totalParts: partsData.pagination?.totalCount || 0,
@@ -77,10 +86,42 @@ export default function AdminPage() {
         });
 
         setQuotes(quotesData.quotes || []);
+        if (contentData && !contentData.error) {
+          setSiteContent(contentData);
+        }
         setLoading(false);
       })
       .catch(() => router.push('/login'));
   }, [router]);
+
+  const updateContentField = (section: string, key: string, value: string) => {
+    setSiteContent((prev: any) => ({
+      ...prev,
+      [section]: {
+        ...prev?.[section],
+        [key]: value
+      }
+    }));
+  };
+
+  const handleSaveContent = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContentSaving(true); setContentSuccess(''); setContentError('');
+    try {
+      const res = await fetch('/api/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(siteContent),
+      });
+      const data = await res.json();
+      setContentSaving(false);
+      if (!res.ok) { setContentError(data.error); return; }
+      setContentSuccess(isTr ? 'Site içeriği başarıyla güncellendi!' : 'Site content updated successfully!');
+    } catch {
+      setContentSaving(false);
+      setContentError(isTr ? 'Kaydederken bir hata oluştu.' : 'An error occurred while saving.');
+    }
+  };
 
   const handleStatusChange = async (quoteId: string, status: string) => {
     await fetch(`/api/quotes/${quoteId}`, {
@@ -180,6 +221,7 @@ export default function AdminPage() {
           {([
             { key: 'quotes', label: t('admin.quoteList'), icon: FileText },
             { key: 'parts', label: t('admin.partsTitle'), icon: Package },
+            { key: 'content', label: isTr ? 'Site İçeriği' : 'Site Content', icon: LayoutGrid },
           ] as const).map(tab => {
             const Icon = tab.icon;
             return (
@@ -396,6 +438,263 @@ export default function AdminPage() {
                   <button type="submit" disabled={partSaving} className="btn btn-primary" style={{ padding: '12px 24px' }}>
                     <Plus size={15} />
                     {partSaving ? t('general.loading') : t('admin.savePart')}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Site Content Manager Tab */}
+        {activeTab === 'content' && siteContent && (
+          <div>
+            <div className="card" style={{ padding: 28, background: '#ffffff', border: '1px solid #E1E1E1' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, borderBottom: '1px solid #E1E1E1', paddingBottom: 16 }}>
+                <div>
+                  <h3 style={{ fontSize: 18, margin: 0, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <LayoutGrid size={18} color="var(--primary)" />
+                    {isTr ? 'Site İçeriği Düzenleyici' : 'Homepage Content Manager'}
+                  </h3>
+                  <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--text-muted)' }}>
+                    {isTr ? 'Anasayfadaki metinleri ve görselleri gerçek zamanlı olarak güncelleyin.' : 'Update headings, paragraphs, and images on the homepage in real-time.'}
+                  </p>
+                </div>
+              </div>
+
+              {contentSuccess && (
+                <div style={{
+                  padding: '12px 16px', borderRadius: 8, marginBottom: 16,
+                  background: 'rgba(16,185,129,0.1)', border: '1px solid var(--success)',
+                  color: 'var(--success)', fontSize: 14,
+                }}>✅ {contentSuccess}</div>
+              )}
+              {contentError && (
+                <div style={{
+                  padding: '12px 16px', borderRadius: 8, marginBottom: 16,
+                  background: 'rgba(239,68,68,0.1)', border: '1px solid var(--danger)',
+                  color: 'var(--danger)', fontSize: 14,
+                }}>{contentError}</div>
+              )}
+
+              <form onSubmit={handleSaveContent}>
+                {/* 1. HERO SECTION */}
+                <div style={{ marginBottom: 32, borderBottom: '1px solid #F0F0F0', paddingBottom: 24 }}>
+                  <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--primary)', marginBottom: 16, textTransform: 'uppercase' }}>
+                    1. Hero Section
+                  </h4>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Subtitle (EN)</label>
+                      <input type="text" value={siteContent.hero?.subtitleEn || ''} onChange={e => updateContentField('hero', 'subtitleEn', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Alt Başlık (TR)</label>
+                      <input type="text" value={siteContent.hero?.subtitleTr || ''} onChange={e => updateContentField('hero', 'subtitleTr', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Title (EN)</label>
+                      <input type="text" value={siteContent.hero?.titleEn || ''} onChange={e => updateContentField('hero', 'titleEn', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Başlık (TR)</label>
+                      <input type="text" value={siteContent.hero?.titleTr || ''} onChange={e => updateContentField('hero', 'titleTr', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Description (EN)</label>
+                      <textarea rows={3} value={siteContent.hero?.descEn || ''} onChange={e => updateContentField('hero', 'descEn', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Açıklama (TR)</label>
+                      <textarea rows={3} value={siteContent.hero?.descTr || ''} onChange={e => updateContentField('hero', 'descTr', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                  </div>
+                  <div style={{ maxWidth: '50%' }}>
+                    <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Hero Right Image URL</label>
+                    <input type="text" value={siteContent.hero?.imageUrl || ''} onChange={e => updateContentField('hero', 'imageUrl', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                  </div>
+                </div>
+
+                {/* 2. SUCCESS & STATS SECTION */}
+                <div style={{ marginBottom: 32, borderBottom: '1px solid #F0F0F0', paddingBottom: 24 }}>
+                  <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--primary)', marginBottom: 16, textTransform: 'uppercase' }}>
+                    2. Success &amp; Stats Section
+                  </h4>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Section Subtitle (EN)</label>
+                      <input type="text" value={siteContent.statsSection?.subtitleEn || ''} onChange={e => updateContentField('statsSection', 'subtitleEn', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Bölüm Alt Başlığı (TR)</label>
+                      <input type="text" value={siteContent.statsSection?.subtitleTr || ''} onChange={e => updateContentField('statsSection', 'subtitleTr', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Section Title (EN)</label>
+                      <input type="text" value={siteContent.statsSection?.titleEn || ''} onChange={e => updateContentField('statsSection', 'titleEn', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Bölüm Başlığı (TR)</label>
+                      <input type="text" value={siteContent.statsSection?.titleTr || ''} onChange={e => updateContentField('statsSection', 'titleTr', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Section Desc (EN)</label>
+                      <textarea rows={3} value={siteContent.statsSection?.descEn || ''} onChange={e => updateContentField('statsSection', 'descEn', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Bölüm Açıklaması (TR)</label>
+                      <textarea rows={3} value={siteContent.statsSection?.descTr || ''} onChange={e => updateContentField('statsSection', 'descTr', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                  </div>
+
+                  {/* Counters */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 16 }}>
+                    <div style={{ background: '#F9F9F9', padding: 12, borderRadius: 8 }}>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--primary)', display: 'block', marginBottom: 6 }}>Stat 1 Value</label>
+                      <input type="text" value={siteContent.statsSection?.stat1Value || ''} onChange={e => updateContentField('statsSection', 'stat1Value', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <label style={{ fontSize: 11, color: 'var(--text-muted)', display: 'block', marginBottom: 4 }}>Label (EN)</label>
+                      <input type="text" value={siteContent.statsSection?.stat1LabelEn || ''} onChange={e => updateContentField('statsSection', 'stat1LabelEn', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <label style={{ fontSize: 11, color: 'var(--text-muted)', display: 'block', marginBottom: 4 }}>Etiket (TR)</label>
+                      <input type="text" value={siteContent.statsSection?.stat1LabelTr || ''} onChange={e => updateContentField('statsSection', 'stat1LabelTr', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <div style={{ background: '#F9F9F9', padding: 12, borderRadius: 8 }}>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--primary)', display: 'block', marginBottom: 6 }}>Stat 2 Value</label>
+                      <input type="text" value={siteContent.statsSection?.stat2Value || ''} onChange={e => updateContentField('statsSection', 'stat2Value', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <label style={{ fontSize: 11, color: 'var(--text-muted)', display: 'block', marginBottom: 4 }}>Label (EN)</label>
+                      <input type="text" value={siteContent.statsSection?.stat2LabelEn || ''} onChange={e => updateContentField('statsSection', 'stat2LabelEn', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <label style={{ fontSize: 11, color: 'var(--text-muted)', display: 'block', marginBottom: 4 }}>Etiket (TR)</label>
+                      <input type="text" value={siteContent.statsSection?.stat2LabelTr || ''} onChange={e => updateContentField('statsSection', 'stat2LabelTr', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <div style={{ background: '#F9F9F9', padding: 12, borderRadius: 8 }}>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--primary)', display: 'block', marginBottom: 6 }}>Stat 3 Value</label>
+                      <input type="text" value={siteContent.statsSection?.stat3Value || ''} onChange={e => updateContentField('statsSection', 'stat3Value', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <label style={{ fontSize: 11, color: 'var(--text-muted)', display: 'block', marginBottom: 4 }}>Label (EN)</label>
+                      <input type="text" value={siteContent.statsSection?.stat3LabelEn || ''} onChange={e => updateContentField('statsSection', 'stat3LabelEn', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <label style={{ fontSize: 11, color: 'var(--text-muted)', display: 'block', marginBottom: 4 }}>Etiket (TR)</label>
+                      <input type="text" value={siteContent.statsSection?.stat3LabelTr || ''} onChange={e => updateContentField('statsSection', 'stat3LabelTr', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. SUSTAINABILITY SECTION */}
+                <div style={{ marginBottom: 32, borderBottom: '1px solid #F0F0F0', paddingBottom: 24 }}>
+                  <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--primary)', marginBottom: 16, textTransform: 'uppercase' }}>
+                    3. Sustainability Panel
+                  </h4>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Title (EN)</label>
+                      <input type="text" value={siteContent.sustainability?.titleEn || ''} onChange={e => updateContentField('sustainability', 'titleEn', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Başlık (TR)</label>
+                      <input type="text" value={siteContent.sustainability?.titleTr || ''} onChange={e => updateContentField('sustainability', 'titleTr', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Description (EN)</label>
+                      <textarea rows={3} value={siteContent.sustainability?.descEn || ''} onChange={e => updateContentField('sustainability', 'descEn', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 6 }}>Açıklama (TR)</label>
+                      <textarea rows={3} value={siteContent.sustainability?.descTr || ''} onChange={e => updateContentField('sustainability', 'descTr', e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: 7, fontSize: 13 }} />
+                    </div>
+                  </div>
+
+                  {/* Bullets */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, background: '#F9F9F9', padding: 16, borderRadius: 8 }}>
+                    <div>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--primary)', display: 'block', marginBottom: 8 }}>Checklist Items (EN)</label>
+                      <input type="text" value={siteContent.sustainability?.bullet1En || ''} onChange={e => updateContentField('sustainability', 'bullet1En', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <input type="text" value={siteContent.sustainability?.bullet2En || ''} onChange={e => updateContentField('sustainability', 'bullet2En', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <input type="text" value={siteContent.sustainability?.bullet3En || ''} onChange={e => updateContentField('sustainability', 'bullet3En', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <input type="text" value={siteContent.sustainability?.bullet4En || ''} onChange={e => updateContentField('sustainability', 'bullet4En', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--primary)', display: 'block', marginBottom: 8 }}>Kontrol Listesi Maddeleri (TR)</label>
+                      <input type="text" value={siteContent.sustainability?.bullet1Tr || ''} onChange={e => updateContentField('sustainability', 'bullet1Tr', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <input type="text" value={siteContent.sustainability?.bullet2Tr || ''} onChange={e => updateContentField('sustainability', 'bullet2Tr', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <input type="text" value={siteContent.sustainability?.bullet3Tr || ''} onChange={e => updateContentField('sustainability', 'bullet3Tr', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12, marginBottom: 8 }} />
+                      <input type="text" value={siteContent.sustainability?.bullet4Tr || ''} onChange={e => updateContentField('sustainability', 'bullet4Tr', e.target.value)} style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. PRODUCT RANGES */}
+                <div style={{ marginBottom: 32, borderBottom: '1px solid #F0F0F0', paddingBottom: 24 }}>
+                  <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--primary)', marginBottom: 16, textTransform: 'uppercase' }}>
+                    4. Product Ranges Settings
+                  </h4>
+                  
+                  {/* Category 1: Engine Units */}
+                  <div style={{ background: '#F9F9F9', padding: 16, borderRadius: 8, marginBottom: 16 }}>
+                    <h5 style={{ margin: '0 0 12px 0', fontSize: 13, fontWeight: 700, color: 'var(--text-main)' }}>Engine Units</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 12 }}>
+                      <input type="text" value={siteContent.products?.engineTitleEn || ''} onChange={e => updateContentField('products', 'engineTitleEn', e.target.value)} placeholder="Title (EN)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                      <input type="text" value={siteContent.products?.engineTitleTr || ''} onChange={e => updateContentField('products', 'engineTitleTr', e.target.value)} placeholder="Title (TR)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 12 }}>
+                      <textarea rows={2} value={siteContent.products?.engineDescEn || ''} onChange={e => updateContentField('products', 'engineDescEn', e.target.value)} placeholder="Description (EN)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                      <textarea rows={2} value={siteContent.products?.engineDescTr || ''} onChange={e => updateContentField('products', 'engineDescTr', e.target.value)} placeholder="Description (TR)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <input type="text" value={siteContent.products?.engineImg || ''} onChange={e => updateContentField('products', 'engineImg', e.target.value)} placeholder="Image Path (e.g. /engine_unit.png)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                  </div>
+
+                  {/* Category 2: Powertrain */}
+                  <div style={{ background: '#F9F9F9', padding: 16, borderRadius: 8, marginBottom: 16 }}>
+                    <h5 style={{ margin: '0 0 12px 0', fontSize: 13, fontWeight: 700, color: 'var(--text-main)' }}>Powertrain</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 12 }}>
+                      <input type="text" value={siteContent.products?.powertrainTitleEn || ''} onChange={e => updateContentField('products', 'powertrainTitleEn', e.target.value)} placeholder="Title (EN)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                      <input type="text" value={siteContent.products?.powertrainTitleTr || ''} onChange={e => updateContentField('products', 'powertrainTitleTr', e.target.value)} placeholder="Title (TR)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 12 }}>
+                      <textarea rows={2} value={siteContent.products?.powertrainDescEn || ''} onChange={e => updateContentField('products', 'powertrainDescEn', e.target.value)} placeholder="Description (EN)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                      <textarea rows={2} value={siteContent.products?.powertrainDescTr || ''} onChange={e => updateContentField('products', 'powertrainDescTr', e.target.value)} placeholder="Description (TR)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <input type="text" value={siteContent.products?.powertrainImg || ''} onChange={e => updateContentField('products', 'powertrainImg', e.target.value)} placeholder="Image Path" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                  </div>
+
+                  {/* Category 3: Hydraulic */}
+                  <div style={{ background: '#F9F9F9', padding: 16, borderRadius: 8, marginBottom: 16 }}>
+                    <h5 style={{ margin: '0 0 12px 0', fontSize: 13, fontWeight: 700, color: 'var(--text-main)' }}>Hydraulic</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 12 }}>
+                      <input type="text" value={siteContent.products?.hydraulicTitleEn || ''} onChange={e => updateContentField('products', 'hydraulicTitleEn', e.target.value)} placeholder="Title (EN)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                      <input type="text" value={siteContent.products?.hydraulicTitleTr || ''} onChange={e => updateContentField('products', 'hydraulicTitleTr', e.target.value)} placeholder="Title (TR)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 12 }}>
+                      <textarea rows={2} value={siteContent.products?.hydraulicDescEn || ''} onChange={e => updateContentField('products', 'hydraulicDescEn', e.target.value)} placeholder="Description (EN)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                      <textarea rows={2} value={siteContent.products?.hydraulicDescTr || ''} onChange={e => updateContentField('products', 'hydraulicDescTr', e.target.value)} placeholder="Description (TR)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <input type="text" value={siteContent.products?.hydraulicImg || ''} onChange={e => updateContentField('products', 'hydraulicImg', e.target.value)} placeholder="Image Path" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                  </div>
+
+                  {/* Category 4: Drifter parts */}
+                  <div style={{ background: '#F9F9F9', padding: 16, borderRadius: 8 }}>
+                    <h5 style={{ margin: '0 0 12px 0', fontSize: 13, fontWeight: 700, color: 'var(--text-main)' }}>Drifter &amp; Driller Parts</h5>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 12 }}>
+                      <input type="text" value={siteContent.products?.drifterTitleEn || ''} onChange={e => updateContentField('products', 'drifterTitleEn', e.target.value)} placeholder="Title (EN)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                      <input type="text" value={siteContent.products?.drifterTitleTr || ''} onChange={e => updateContentField('products', 'drifterTitleTr', e.target.value)} placeholder="Title (TR)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 12 }}>
+                      <textarea rows={2} value={siteContent.products?.drifterDescEn || ''} onChange={e => updateContentField('products', 'drifterDescEn', e.target.value)} placeholder="Description (EN)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                      <textarea rows={2} value={siteContent.products?.drifterDescTr || ''} onChange={e => updateContentField('products', 'drifterDescTr', e.target.value)} placeholder="Description (TR)" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                    </div>
+                    <input type="text" value={siteContent.products?.drifterImg || ''} onChange={e => updateContentField('products', 'drifterImg', e.target.value)} placeholder="Image Path" style={{ width: '100%', padding: '8px 10px', background: '#FFF', border: '1px solid var(--border-color)', borderRadius: 6, fontSize: 12 }} />
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
+                  <button type="submit" disabled={contentSaving} className="btn btn-primary" style={{ padding: '12px 28px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Save size={15} />
+                    {contentSaving ? t('general.loading') : (isTr ? 'Değişiklikleri Kaydet' : 'Save Changes')}
                   </button>
                 </div>
               </form>

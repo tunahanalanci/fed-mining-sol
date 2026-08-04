@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, ChevronRight, Check, Plus, Minus, Send, Phone, Mail, Award, Compass, Heart } from 'lucide-react';
@@ -21,6 +21,20 @@ export default function HomePage() {
 
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(0); // default open first
+
+  // Dynamic content
+  const [content, setContent] = useState<any>(null);
+
+  useEffect(() => {
+    fetch('/api/content')
+      .then(res => res.json())
+      .then(data => {
+        if (data && !data.error) {
+          setContent(data);
+        }
+      })
+      .catch(err => console.error('Failed to load dynamic content:', err));
+  }, []);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,36 +72,36 @@ export default function HomePage() {
 
   const productCards = [
     {
-      title: 'ENGINE UNITS',
-      titleTr: 'MOTOR ÜNİTELERİ',
+      title: content?.products?.engineTitleEn || 'ENGINE UNITS',
+      titleTr: content?.products?.engineTitleTr || 'MOTOR ÜNİTELERİ',
       href: '/product-range-engine-units',
-      img: '/engine_unit.png',
-      desc: 'Fed Mining Solutions and Parts provides OEM quality engine parts that meet OEM specifications. Our parts ensure high performance and durability, backed by an extensive warranty. Trust us for the best engine parts in the market today.',
-      descTr: 'Fed Mining Solutions and Parts, orijinal OEM spesifikasyonlarını karşılayan OEM kalitesinde motor parçaları sunar. Parçalarımız, kapsamlı bir garantiyle desteklenen yüksek performans ve dayanıklılık sağlar. Bugün pazardaki en iyi motor parçaları için bize güvenin.'
+      img: content?.products?.engineImg || '/engine_unit.png',
+      desc: content?.products?.engineDescEn || 'Fed Mining Solutions and Parts provides OEM quality engine parts that meet OEM specifications. Our parts ensure high performance and durability, backed by an extensive warranty. Trust us for the best engine parts in the market today.',
+      descTr: content?.products?.engineDescTr || 'Fed Mining Solutions and Parts, orijinal OEM spesifikasyonlarını karşılayan OEM kalitesinde motor parçaları sunar. Parçalarımız, kapsamlı bir garantiyle desteklenen yüksek performans ve dayanıklılık sağlar. Bugün pazardaki en iyi motor parçaları için bize güvenin.'
     },
     {
-      title: 'POWERTRAIN',
-      titleTr: 'ŞANZIMAN VE GÜÇ AKTARIMI',
+      title: content?.products?.powertrainTitleEn || 'POWERTRAIN',
+      titleTr: content?.products?.powertrainTitleTr || 'ŞANZIMAN VE GÜÇ AKTARIMI',
       href: '/parts?category=Gear%20%26%20Shaft',
-      img: '/about-us-2.png',
-      desc: 'Believe in delivering the highest quality transmission/powertrain products to help our customers achieve unparalleled results. With Fed Mining Solutions, you can be confident that you are receiving the finest transmission/powertrain products on the market.',
-      descTr: 'Müşterilerimizin benzersiz sonuçlar elde etmesine yardımcı olmak için en yüksek kalitede şanzıman/güç aktarma organı ürünleri sunmaya inanıyoruz. Fed Mining Solutions ile piyasadaki en iyi şanzıman/güç aktarma organı ürünlerini alacağınızdan emin olabilirsiniz.'
+      img: content?.products?.powertrainImg || '/about-us-2.png',
+      desc: content?.products?.powertrainDescEn || 'Believe in delivering the highest quality transmission/powertrain products to help our customers achieve unparalleled results. With Fed Mining Solutions, you can be confident that you are receiving the finest transmission/powertrain products on the market.',
+      descTr: content?.products?.powertrainDescTr || 'Müşterilerimizin benzersiz sonuçlar elde etmesine yardımcı olmak için en yüksek kalitede şanzıman/güç aktarma organı ürünleri sunmaya inanıyoruz. Fed Mining Solutions ile piyasadaki en iyi şanzıman/güç aktarma organı ürünlerini alacağınızdan emin olabilirsiniz.'
     },
     {
-      title: 'HYDRAULIC',
-      titleTr: 'HİDROLİK SİSTEMLER',
+      title: content?.products?.hydraulicTitleEn || 'HYDRAULIC',
+      titleTr: content?.products?.hydraulicTitleTr || 'HİDROLİK SİSTEMLER',
       href: '/parts?category=Valve',
-      img: '/service-1.png',
-      desc: 'High-performance hydraulic pumps, valves, cylinders, and seal kits designed for extreme pressure and field durability. Tested for maximum reliability in rock drilling and mining operations.',
-      descTr: 'Zorlu basınç koşullarında ve saha ortamında yüksek performans göstermesi için tasarlanmış hidrolik pompalar, valfler, silindirler ve sızdırmazlık kitleri. Kaya delme ve madencilik faaliyetlerinde maksimum güvenilirlik için test edilmiştir.'
+      img: content?.products?.hydraulicImg || '/service-1.png',
+      desc: content?.products?.hydraulicDescEn || 'High-performance hydraulic pumps, valves, cylinders, and seal kits designed for extreme pressure and field durability. Tested for maximum reliability in rock drilling and mining operations.',
+      descTr: content?.products?.hydraulicDescTr || 'Zorlu basınç koşullarında ve saha ortamında yüksek performans göstermesi için tasarlanmış hidrolik pompalar, valfler, silindirler ve sızdırmazlık kitleri. Kaya delme ve madencilik faaliyetlerinde maksimum güvenilirlik için test edilmiştir.'
     },
     {
-      title: 'DRIFTER & DRILLER PARTS',
-      titleTr: 'KAYA DELİCİ VE MATKAP PARÇALARI',
+      title: content?.products?.drifterTitleEn || 'DRIFTER & DRILLER PARTS',
+      titleTr: content?.products?.drifterTitleTr || 'KAYA DELİCİ VE MATKAP PARÇALARI',
       href: '/product-range-drifter',
-      img: '/drifter.png',
-      desc: "Fed Mining Solutions, we partner with top manufacturers to provide you with high-quality industrial bearings and drifter parts. We're committed to delivering performance and reliability, with a wide selection and prompt order fulfillment. Choose Fed as your partner for success.",
-      descTr: 'Kaya deliciler (drifterlar) için yüksek kaliteli bileşenler ve yedek parçalar sağlamak üzere lider üreticilerle ortaklık kuruyoruz. Geniş ürün yelpazemiz ve hızlı sipariş teslimatımızla performans ve güvenilirlik sunmaya kararlıyız. Başarı ortağınız olarak FED\'i seçin.'
+      img: content?.products?.drifterImg || '/drifter.png',
+      desc: content?.products?.drifterDescEn || "Fed Mining Solutions, we partner with top manufacturers to provide you with high-quality industrial bearings and drifter parts. We're committed to delivering performance and reliability, with a wide selection and prompt order fulfillment. Choose Fed as your partner for success.",
+      descTr: content?.products?.drifterDescTr || 'Kaya deliciler (drifterlar) için yüksek kaliteli bileşenler ve yedek parçalar sağlamak üzere lider üreticilerle ortaklık kuruyoruz. Geniş ürün yelpazemiz ve hızlı sipariş teslimatımızla performans ve güvenilirlik sunmaya kararlıyız. Başarı ortağınız olarak FED\'i seçin.'
     }
   ];
 
@@ -167,7 +181,7 @@ export default function HomePage() {
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
               }}>
-                {isTr ? 'Hayalinizi Gerçekleştirin ve İlham Verin' : 'Achieve Your Dream and Inspire'}
+                {content?.hero?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Hayalinizi Gerçekleştirin ve İlham Verin' : 'Achieve Your Dream and Inspire')}
               </h3>
 
               {/* H1 Title */}
@@ -180,7 +194,7 @@ export default function HomePage() {
                 fontFamily: 'var(--font-heading)',
                 marginBottom: 20,
               }}>
-                {isTr ? 'MADENCİLİK ÇÖZÜMLERİ VE YEDEK PARÇALAR' : 'MINING SOLUTIONS AND PARTS'}
+                {content?.hero?.[isTr ? 'titleTr' : 'titleEn'] || (isTr ? 'MADENCİLİK ÇÖZÜMLERİ VE YEDEK PARÇALAR' : 'MINING SOLUTIONS AND PARTS')}
               </h1>
 
               {/* Description */}
@@ -192,9 +206,9 @@ export default function HomePage() {
                 marginBottom: 50,
                 maxWidth: '680px'
               }}>
-                {isTr
+                {content?.hero?.[isTr ? 'descTr' : 'descEn'] || (isTr
                   ? 'Operasyonlarınızı optimize etmek için gelişmiş tekniklerle endüstri standartlarını aşın. Başarı için olağanüstü parçalar konusunda bize güvenin.'
-                  : 'Exceed industry standards with advanced techniques to optimize your operations. Trust us for exceptional parts for success.'}
+                  : 'Exceed industry standards with advanced techniques to optimize your operations. Trust us for exceptional parts for success.')}
               </p>
 
               {/* Buttons */}
@@ -234,7 +248,7 @@ export default function HomePage() {
                 position: 'relative',
               }}>
                 <Image
-                  src="/hero-mining.png"
+                  src={content?.hero?.imageUrl || '/hero-mining.png'}
                   alt="FED Mining - Drifter parts"
                   width={340}
                   height={420}
@@ -281,7 +295,7 @@ export default function HomePage() {
                   textTransform: 'uppercase',
                   marginBottom: 10,
                 }}>
-                  {isTr ? 'Yenilmez Başarımız' : 'Our Undefeated Success'}
+                  {content?.statsSection?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Yenilmez Başarımız' : 'Our Undefeated Success')}
                 </h4>
                 <h2 style={{
                   fontSize: 40,
@@ -291,9 +305,9 @@ export default function HomePage() {
                   fontFamily: 'var(--font-heading)',
                   marginBottom: 20,
                 }}>
-                  {isTr 
+                  {content?.statsSection?.[isTr ? 'titleTr' : 'titleEn'] || (isTr 
                     ? 'Operasyonlarınızı optimize etmenin daha verimli bir yolunu mu arıyorsunuz?' 
-                    : 'Are you looking for a more efficient way to optimize your operations?'}
+                    : 'Are you looking for a more efficient way to optimize your operations?')}
                 </h2>
                 <p style={{
                   fontSize: 16,
@@ -301,9 +315,9 @@ export default function HomePage() {
                   color: 'var(--text-muted)',
                   marginBottom: 35,
                 }}>
-                  {isTr
+                  {content?.statsSection?.[isTr ? 'descTr' : 'descEn'] || (isTr
                     ? 'Başarıya ulaşmanıza yardımcı olacak olağanüstü parçaları sunmak için uzmanlığımıza ve deneyimimize güvenin. Operasyonlarınızı bir üst seviyeye taşımanıza yardımcı olalım.'
-                    : 'Trust in our expertise and experience to deliver exceptional parts that can help set you up for success. Let us help you take your operations to the next level.'}
+                    : 'Trust in our expertise and experience to deliver exceptional parts that can help set you up for success. Let us help you take your operations to the next level.')}
                 </p>
                 <Link href="/contact" className="btn btn-primary" style={{
                   padding: '15px 45px', fontSize: 14, fontWeight: 500, borderRadius: 0, textTransform: 'uppercase'
@@ -331,9 +345,11 @@ export default function HomePage() {
                   padding: '50px 40px',
                   borderRadius: 8,
                 }}>
-                  <h2 style={{ fontSize: 35, fontWeight: 700, color: 'var(--text-main)', margin: '0 0 10px 0' }}>30.000+</h2>
+                  <h2 style={{ fontSize: 35, fontWeight: 700, color: 'var(--text-main)', margin: '0 0 10px 0' }}>
+                    {content?.statsSection?.stat1Value || '30.000+'}
+                  </h2>
                   <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
-                    {isTr ? 'Erişilebilir Parça Numarası' : 'Accessible Part Numbers'}
+                    {content?.statsSection?.[isTr ? 'stat1LabelTr' : 'stat1LabelEn'] || (isTr ? 'Erişilebilir Parça Numarası' : 'Accessible Part Numbers')}
                   </p>
                 </div>
                 {/* Stat 2 */}
@@ -343,9 +359,11 @@ export default function HomePage() {
                   padding: '50px 40px',
                   borderRadius: 8,
                 }}>
-                  <h2 style={{ fontSize: 35, fontWeight: 700, color: 'var(--text-main)', margin: '0 0 10px 0' }}>56+</h2>
+                  <h2 style={{ fontSize: 35, fontWeight: 700, color: 'var(--text-main)', margin: '0 0 10px 0' }}>
+                    {content?.statsSection?.stat2Value || '56+'}
+                  </h2>
                   <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
-                    {isTr ? 'Saygın İş Ortağı' : 'Reputable Business Partners'}
+                    {content?.statsSection?.[isTr ? 'stat2LabelTr' : 'stat2LabelEn'] || (isTr ? 'Saygın İş Ortağı' : 'Reputable Business Partners')}
                   </p>
                 </div>
                 {/* Stat 3 */}
@@ -355,9 +373,11 @@ export default function HomePage() {
                   padding: '50px 40px',
                   borderRadius: 8,
                 }}>
-                  <h2 style={{ fontSize: 35, fontWeight: 700, color: 'var(--text-main)', margin: '0 0 10px 0' }}>5+</h2>
+                  <h2 style={{ fontSize: 35, fontWeight: 700, color: 'var(--text-main)', margin: '0 0 10px 0' }}>
+                    {content?.statsSection?.stat3Value || '5+'}
+                  </h2>
                   <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
-                    {isTr ? 'Günlük Operasyon' : 'Daily Operation'}
+                    {content?.statsSection?.[isTr ? 'stat3LabelTr' : 'stat3LabelEn'] || (isTr ? 'Günlük Operasyon' : 'Daily Operation')}
                   </p>
                 </div>
                 {/* Stat 4 */}
@@ -561,7 +581,7 @@ export default function HomePage() {
                 textTransform: 'uppercase',
                 marginBottom: 10,
               }}>
-                {isTr ? 'Sürdürülebilirlik' : 'Sustainability'}
+                {content?.sustainability?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Sürdürülebilirlik' : 'Sustainability')}
               </h4>
               <h2 style={{
                 fontSize: 36,
@@ -571,7 +591,7 @@ export default function HomePage() {
                 fontFamily: 'var(--font-heading)',
                 marginBottom: 20,
               }}>
-                {isTr ? 'İnsanları Sağlıklı ve Güvende Tutmaya Kararlıyız' : 'Committed To Keep People Healthy & Safe'}
+                {content?.sustainability?.[isTr ? 'titleTr' : 'titleEn'] || (isTr ? 'İnsanları Sağlıklı ve Güvende Tutmaya Kararlıyız' : 'Committed To Keep People Healthy & Safe')}
               </h2>
               <p style={{
                 fontSize: 16,
@@ -579,9 +599,9 @@ export default function HomePage() {
                 color: 'rgba(255,255,255,0.8)',
                 marginBottom: 35,
               }}>
-                {isTr
+                {content?.sustainability?.[isTr ? 'descTr' : 'descEn'] || (isTr
                   ? 'Amacımız insanların sağlıklı ve güvende kalmasına yardımcı olmaktır ve dünya çapında refahı desteklemek için sürekli yeni yollar bulmaya kararlıyız. Herkesin en iyi hayatını yaşayabileceği bir dünyaya ulaşmak için birlikte çalışalım.'
-                  : "Our goal is to help people stay healthy and safe, and we are committed to constantly finding new ways to support well-being worldwide. Let's work together to achieve a world where everyone can live their best lives."}
+                  : "Our goal is to help people stay healthy and safe, and we are committed to constantly finding new ways to support well-being worldwide. Let's work together to achieve a world where everyone can live their best lives.")}
               </p>
               <Link href="/contact" className="btn btn-primary" style={{
                 padding: '15px 45px', fontSize: 14, fontWeight: 500, borderRadius: 0, textTransform: 'uppercase'
@@ -641,10 +661,10 @@ export default function HomePage() {
                 gap: 15,
               }}>
                 {[
-                  { en: 'Sustainability', tr: 'Sürdürülebilirlik' },
-                  { en: 'Project On Time', tr: 'Zamanında Proje Teslimi' },
-                  { en: 'Modern Technology', tr: 'Modern Teknoloji' },
-                  { en: 'Latest Designs', tr: 'En Yeni Tasarımlar' }
+                  { en: content?.sustainability?.bullet1En || 'Sustainability', tr: content?.sustainability?.bullet1Tr || 'Sürdürülebilirlik' },
+                  { en: content?.sustainability?.bullet2En || 'Project On Time', tr: content?.sustainability?.bullet2Tr || 'Zamanında Proje Teslimi' },
+                  { en: content?.sustainability?.bullet3En || 'Modern Technology', tr: content?.sustainability?.bullet3Tr || 'Modern Teknoloji' },
+                  { en: content?.sustainability?.bullet4En || 'Latest Designs', tr: content?.sustainability?.bullet4Tr || 'En Yeni Tasarımlar' }
                 ].map((item, idx) => (
                   <li key={idx} style={{
                     display: 'flex',
