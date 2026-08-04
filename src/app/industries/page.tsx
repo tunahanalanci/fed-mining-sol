@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Pickaxe, Construction, Tractor, Settings, Truck, Trees, ArrowRight, ShieldCheck, HelpCircle } from 'lucide-react';
+import { Pickaxe, Construction, Tractor, Settings, Truck, Trees, Cpu, ArrowRight, ShieldCheck, HelpCircle } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import ScrollReveal from '@/components/ScrollReveal';
 
@@ -62,6 +62,15 @@ export default function IndustriesPage() {
         ? 'Ormancılık makineleriniz için yedek parçaları FED Madencilik Çözümleri\'nden alın. Tigercat, Caterpillar, John Deere ve Komatsu gibi sektör liderlerinin geniş bir yedek parça yelpazesini taşıyoruz. Uzmanlığımızla ekipmanlarınızı hızla onarmanıza ve bakımını yapmanıza yardımcı olabilir, arıza sürelerini en aza indirebiliriz. Güvenilir ve kaliteli yedek parçalar için bize güvenin.'
         : 'Get replacement parts for your forestry machines at FED Mining Solutions. We carry a wide range of spare parts from industry leaders such as Tigercat, Caterpillar, John Deere, and Komatsu. With our expertise, we can help you quickly repair and maintain your equipment, minimizing downtime. Trust us for reliable, high-quality spare parts.',
       color: '#ee5253'
+    },
+    {
+      icon: Cpu,
+      title: isTr ? 'Perso Maden & Şantiye Yazılımı' : 'Perso Mining & Construction Software',
+      desc: isTr
+        ? 'İş ortağımız Perso tarafından sunulan şantiye ve maden sahası yönetim yazılımı. QR kodlu personel giriş-çıkış takibi, vardiya planlama, araç/ekipman takibi ve İSG (İş Sağlığı ve Güvenliği) süreçlerinizi tek platformdan yönetin.'
+        : 'Workforce and site management software offered by our partner Perso. Manage personnel shifts, QR-code based attendance tracking, machinery/equipment tracking, and occupational health & safety operations from a single dashboard.',
+      color: '#ffc03d',
+      externalUrl: isTr ? 'https://www.persotr.com' : 'https://www.persotr.com/en/'
     }
   ];
 
@@ -163,18 +172,33 @@ export default function IndustriesPage() {
                       {ind.desc}
                     </p>
                   </div>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    fontSize: 13,
-                    fontWeight: 700,
-                    color: ind.color,
-                    textDecoration: 'none'
-                  }}>
-                    <span>{isTr ? 'Bilgi Al' : 'Request Info'}</span>
-                    <ArrowRight size={14} />
-                  </div>
+                  {ind.externalUrl ? (
+                    <a href={ind.externalUrl} target="_blank" rel="noopener noreferrer" style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: ind.color,
+                      textDecoration: 'none'
+                    }}>
+                      <span>{isTr ? 'Yazılımı İncele' : 'Explore Software'}</span>
+                      <ArrowRight size={14} />
+                    </a>
+                  ) : (
+                    <Link href="/contact" style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: ind.color,
+                      textDecoration: 'none'
+                    }}>
+                      <span>{isTr ? 'Bilgi Al' : 'Request Info'}</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                  )}
                 </ScrollReveal>
               );
             })}

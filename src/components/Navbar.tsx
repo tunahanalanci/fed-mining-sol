@@ -72,7 +72,6 @@ export default function Navbar() {
     | { type: 'link'; href: string; label: string }
     | { type: 'dropdown'; id: string; label: string; items: Array<{ href: string; label: string }> }
   > = [
-    { type: 'link', href: '/', label: t('nav.home') },
     {
       type: 'dropdown',
       id: 'product-range',
@@ -91,11 +90,19 @@ export default function Navbar() {
       items: [
         { href: '/operations', label: t('nav.driftertestbench') },
         { href: '/about', label: t('nav.mobileconteiner') },
+        { href: language === 'tr' ? 'https://www.persotr.com' : 'https://www.persotr.com/en/', label: t('nav.software') },
       ]
     },
     { type: 'link', href: '/parts', label: t('nav.parts') },
-    { type: 'link', href: '/about', label: t('nav.about') },
-    { type: 'link', href: '/contact', label: t('nav.contact') },
+    {
+      type: 'dropdown',
+      id: 'contact-dropdown',
+      label: t('nav.contact'),
+      items: [
+        { href: '/contact', label: t('nav.contact') },
+        { href: '/about', label: t('nav.about') },
+      ]
+    },
   ];
 
   return (
@@ -109,7 +116,7 @@ export default function Navbar() {
         display: scrolled ? 'none' : 'block',
         transition: 'all 0.3s ease',
       }}>
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, width: '100%', maxWidth: '95%', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '16px', paddingRight: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <a href="tel:+905061208706" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'rgba(255,255,255,0.75)', fontWeight: 400, textDecoration: 'none' }}>
               <Phone size={11} color="#ffc03d" />
@@ -137,7 +144,7 @@ export default function Navbar() {
         boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
         transition: 'all 0.3s ease',
       }}>
-        <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', maxWidth: '95%', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '16px', paddingRight: '16px' }}>
 
           {/* Logo */}
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
@@ -246,11 +253,15 @@ export default function Navbar() {
                     }}
                   >
                     {item.items.map(subItem => {
-                      const isSubActive = pathname === subItem.href.split('?')[0];
+                      const isExternal = subItem.href.startsWith('http');
+                      const isSubActive = !isExternal && pathname === subItem.href.split('?')[0];
+                      const Tag = isExternal ? 'a' : Link;
+                      const extraProps = isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {};
                       return (
-                        <Link
+                        <Tag
                           key={subItem.href}
                           href={subItem.href}
+                          {...extraProps}
                           style={{
                             padding: '10px 16px',
                             fontSize: 13,
@@ -268,7 +279,7 @@ export default function Navbar() {
                           }}
                         >
                           {subItem.label}
-                        </Link>
+                        </Tag>
                       );
                     })}
                   </div>
@@ -435,20 +446,25 @@ export default function Navbar() {
                     {isSubOpen && (
                       <div style={{ paddingLeft: 12, marginTop: 8, display: 'flex', flexDirection: 'column', gap: 10 }}>
                         {item.items.map(subItem => {
-                          const isSubActive = pathname === subItem.href.split('?')[0];
+                          const isExternal = subItem.href.startsWith('http');
+                          const isSubActive = !isExternal && pathname === subItem.href.split('?')[0];
+                          const Tag = isExternal ? 'a' : Link;
+                          const extraProps = isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {};
                           return (
-                            <Link
+                            <Tag
                               key={subItem.href}
                               href={subItem.href}
+                              {...extraProps}
                               onClick={() => setMobileOpen(false)}
                               style={{
                                 display: 'block', padding: '8px 0',
                                 fontSize: 14, fontWeight: 500,
                                 color: isSubActive ? 'var(--primary)' : 'var(--text-muted)',
+                                textDecoration: 'none',
                               }}
                             >
                               {subItem.label}
-                            </Link>
+                            </Tag>
                           );
                         })}
                       </div>
