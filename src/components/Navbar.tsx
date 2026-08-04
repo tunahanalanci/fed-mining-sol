@@ -116,7 +116,7 @@ export default function Navbar() {
         display: scrolled ? 'none' : 'block',
         transition: 'all 0.3s ease',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, width: '100%', maxWidth: '95%', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '16px', paddingRight: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, width: '90%', maxWidth: '1360px', marginLeft: 'auto', marginRight: 'auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             <a href="tel:+905061208706" style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'rgba(255,255,255,0.75)', fontWeight: 400, textDecoration: 'none' }}>
               <Phone size={11} color="#ffc03d" />
@@ -144,7 +144,7 @@ export default function Navbar() {
         boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
         transition: 'all 0.3s ease',
       }}>
-        <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', maxWidth: '95%', marginLeft: 'auto', marginRight: 'auto', paddingLeft: '16px', paddingRight: '16px' }}>
+        <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', maxWidth: '1360px', marginLeft: 'auto', marginRight: 'auto' }}>
 
           {/* Logo */}
           <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
@@ -176,9 +176,9 @@ export default function Navbar() {
                     key={item.href}
                     href={item.href}
                     style={{
-                      padding: '6px 12px',
+                      padding: '8px 16px',
                       borderRadius: 6,
-                      fontSize: 13,
+                      fontSize: 15,
                       fontWeight: 600,
                       fontFamily: 'var(--font-heading)',
                       color: isActive ? 'var(--primary)' : navLinkColor,
@@ -208,9 +208,9 @@ export default function Navbar() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
-                      padding: '6px 12px',
+                      padding: '8px 16px',
                       borderRadius: 6,
-                      fontSize: 13,
+                      fontSize: 15,
                       fontWeight: 600,
                       fontFamily: 'var(--font-heading)',
                       color: isActive ? 'var(--primary)' : navLinkColor,
