@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, ChevronRight, Check, Plus, Minus, Send, Phone, Mail, Award, Compass, Heart } from 'lucide-react';
+import { ArrowRight, ChevronRight, Check, Plus, Minus, Send, Phone, Mail, Award, Compass, Heart, Shield } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import ScrollReveal from '@/components/ScrollReveal';
 
@@ -142,16 +142,20 @@ export default function HomePage() {
     <div style={{ paddingTop: 0 }}>
 
       {/* ═══════════════════════════════════════════════════
-          SECTION 1: HERO
+          SECTION 1: HERO (High-Impact Industrial B2B Header)
       ═══════════════════════════════════════════════════ */}
       <section style={{
         position: 'relative',
-        minHeight: '940px',
+        minHeight: '900px',
         display: 'flex',
         alignItems: 'center',
-        background: '#212d45',
+        background: 'linear-gradient(135deg, #172033 0%, #212d45 60%, #151d2f 100%)',
         overflow: 'hidden',
       }}>
+        {/* Animated background glow & hero scanlines */}
+        <div className="hero-animated-bg" />
+        <div className="hero-scan" />
+
         {/* Hero Background image with dark gradient overlay */}
         <div style={{
           position: 'absolute', inset: 0,
@@ -159,51 +163,46 @@ export default function HomePage() {
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.18,
+          opacity: 0.16,
         }} />
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'linear-gradient(71deg, #212d45 100%, rgba(33,45,69,0.3) 100%)',
+          background: 'radial-gradient(ellipse at center, rgba(33,45,69,0.3) 0%, rgba(23,32,51,0.95) 100%)',
           pointerEvents: 'none',
         }} />
 
-        <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: '135px', paddingBottom: '135px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 60, alignItems: 'center' }}>
+        <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: '120px', paddingBottom: '120px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 60, alignItems: 'center' }} className="responsive-grid-1col">
             <div style={{ maxWidth: '780px' }}>
               
-              {/* Subheading */}
-              <h3 style={{
-                fontSize: 18,
-                fontWeight: 200,
-                color: '#ffc03d',
-                fontFamily: 'var(--font-heading)',
-                marginBottom: 20,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-              }}>
-                {content?.hero?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Hayalinizi Gerçekleştirin ve İlham Verin' : 'Achieve Your Dream and Inspire')}
-              </h3>
+              {/* Gold Eyebrow Badge */}
+              <div style={{ marginBottom: 24 }}>
+                <span className="badge-gold">
+                  <span className="badge-gold-dot" />
+                  {content?.hero?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Hayalinizi Gerçekleştirin ve İlham Verin' : 'Achieve Your Dream and Inspire')}
+                </span>
+              </div>
 
               {/* H1 Title */}
               <h1 style={{
-                fontSize: 'clamp(2.4rem, 6vw, 5.2rem)',
-                fontWeight: 700,
-                lineHeight: 1.4,
+                fontSize: 'clamp(2.5rem, 5.5vw, 4.8rem)',
+                fontWeight: 800,
+                lineHeight: 1.15,
                 color: '#ffffff',
                 textTransform: 'uppercase',
                 fontFamily: 'var(--font-heading)',
-                marginBottom: 20,
+                marginBottom: 24,
+                letterSpacing: '-0.02em',
               }}>
                 {content?.hero?.[isTr ? 'titleTr' : 'titleEn'] || (isTr ? 'MADENCİLİK ÇÖZÜMLERİ VE YEDEK PARÇALAR' : 'MINING SOLUTIONS AND PARTS')}
               </h1>
 
               {/* Description */}
               <p style={{
-                fontSize: 17,
-                lineHeight: 1.65,
-                color: '#ffffff',
-                opacity: 0.9,
-                marginBottom: 50,
+                fontSize: 18,
+                lineHeight: 1.7,
+                color: 'rgba(255, 255, 255, 0.85)',
+                marginBottom: 48,
                 maxWidth: '680px'
               }}>
                 {content?.hero?.[isTr ? 'descTr' : 'descEn'] || (isTr
@@ -212,15 +211,18 @@ export default function HomePage() {
               </p>
 
               {/* Buttons */}
-              <div style={{ display: 'flex', gap: 15, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
                 <Link href="/industries" className="btn btn-primary" style={{
-                  padding: '15px 45px', fontSize: 15, fontWeight: 500, borderRadius: 0, textTransform: 'uppercase'
+                  padding: '16px 42px', fontSize: 15, fontWeight: 700, borderRadius: 8, textTransform: 'uppercase', letterSpacing: '0.04em',
+                  boxShadow: '0 8px 25px rgba(255, 192, 61, 0.3)'
                 }}>
-                  {isTr ? 'Hizmetlerimiz' : 'Our Services'}
+                  <span>{isTr ? 'Hizmetlerimiz' : 'Our Services'}</span>
+                  <ArrowRight size={18} />
                 </Link>
                 <Link href="/contact" className="btn" style={{
-                  padding: '15px 45px', fontSize: 15, fontWeight: 500, borderRadius: 0, textTransform: 'uppercase',
-                  backgroundColor: 'transparent', color: '#ffffff', border: '1px solid #ffffff'
+                  padding: '16px 42px', fontSize: 15, fontWeight: 700, borderRadius: 8, textTransform: 'uppercase', letterSpacing: '0.04em',
+                  backgroundColor: 'rgba(255,255,255,0.06)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.25)',
+                  backdropFilter: 'blur(8px)', transition: 'all 0.25s ease'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#ffc03d';
@@ -228,9 +230,9 @@ export default function HomePage() {
                   e.currentTarget.style.borderColor = '#ffc03d';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                   e.currentTarget.style.color = '#ffffff';
-                  e.currentTarget.style.borderColor = '#ffffff';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
                 }}>
                   {isTr ? 'Bize Ulaşın' : 'Contact Us'}
                 </Link>
@@ -238,33 +240,42 @@ export default function HomePage() {
 
             </div>
 
-            {/* Right side product catalog preview */}
-            <div className="desktop-nav" style={{ width: 340, flexShrink: 0 }}>
+            {/* Right side floating product catalog preview card */}
+            <div className="desktop-nav" style={{ width: 360, flexShrink: 0 }}>
               <div style={{
-                borderRadius: 16,
+                borderRadius: 20,
                 overflow: 'hidden',
-                border: '2px solid rgba(255,192,61,0.3)',
-                boxShadow: '0 24px 60px rgba(0,0,0,0.4)',
+                border: '1px solid rgba(255,192,61,0.4)',
+                boxShadow: '0 30px 70px rgba(0,0,0,0.5), 0 0 30px rgba(255,192,61,0.15)',
                 position: 'relative',
-              }}>
-                <Image
-                  src={content?.hero?.imageUrl || '/hero-mining.png'}
-                  alt="FED Mining - Drifter parts"
-                  width={340}
-                  height={420}
-                  style={{ objectFit: 'cover', display: 'block' }}
-                  priority
-                />
+                background: '#1a243a',
+                transition: 'transform 0.4s ease',
+              }} className="float">
+                <div style={{ position: 'relative', height: 420, width: '100%' }}>
+                  <Image
+                    src={content?.hero?.imageUrl || '/hero-mining.png'}
+                    alt="FED Mining - Drifter parts"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    priority
+                  />
+                </div>
                 <div style={{
                   position: 'absolute', bottom: 0, left: 0, right: 0,
-                  background: 'linear-gradient(transparent, rgba(33,45,69,0.95))',
-                  padding: '32px 20px 20px',
+                  background: 'linear-gradient(to top, rgba(23,32,51,0.98) 0%, rgba(23,32,51,0.85) 60%, transparent 100%)',
+                  padding: '36px 24px 24px',
+                  backdropFilter: 'blur(10px)'
                 }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#ffc03d', fontFamily: 'var(--font-heading)', marginBottom: 4 }}>
-                    SANDVIK &amp; EPIROC
+                  <div style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 6,
+                    padding: '4px 10px', borderRadius: 99, background: 'rgba(255,192,61,0.15)',
+                    border: '1px solid rgba(255,192,61,0.4)', marginBottom: 8
+                  }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ffc03d' }} />
+                    <span style={{ fontSize: 10, fontWeight: 800, color: '#ffc03d', letterSpacing: '0.08em' }}>SANDVIK &amp; EPIROC COMPATIBLE</span>
                   </div>
-                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>
-                    {isTr ? 'OEM uyumlu yedek parça uzmanı' : 'OEM compatible spare parts expert'}
+                  <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>
+                    {isTr ? 'OEM uyumlu drifter & kaya delici parçaları' : 'OEM compatible rock drill & drifter components'}
                   </div>
                 </div>
               </div>
@@ -278,32 +289,29 @@ export default function HomePage() {
       ═══════════════════════════════════════════════════ */}
       <section style={{
         background: '#ffffff',
-        paddingTop: 100,
-        paddingBottom: 100,
+        paddingTop: 110,
+        paddingBottom: 110,
       }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }} className="responsive-grid-1col">
             
             {/* Left text */}
             <ScrollReveal direction="left">
               <div>
-                <h4 style={{
-                  fontSize: 16,
-                  fontWeight: 200,
-                  color: 'var(--primary)',
-                  fontFamily: 'var(--font-heading)',
-                  textTransform: 'uppercase',
-                  marginBottom: 10,
-                }}>
-                  {content?.statsSection?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Yenilmez Başarımız' : 'Our Undefeated Success')}
-                </h4>
+                <div style={{ marginBottom: 16 }}>
+                  <span className="badge-gold">
+                    <span className="badge-gold-dot" />
+                    {content?.statsSection?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Yenilmez Başarımız' : 'Our Undefeated Success')}
+                  </span>
+                </div>
                 <h2 style={{
-                  fontSize: 40,
-                  fontWeight: 700,
-                  lineHeight: 1.3,
+                  fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
+                  fontWeight: 800,
+                  lineHeight: 1.25,
                   color: 'var(--text-main)',
                   fontFamily: 'var(--font-heading)',
-                  marginBottom: 20,
+                  marginBottom: 24,
+                  letterSpacing: '-0.01em',
                 }}>
                   {content?.statsSection?.[isTr ? 'titleTr' : 'titleEn'] || (isTr 
                     ? 'Operasyonlarınızı optimize etmenin daha verimli bir yolunu mu arıyorsunuz?' 
@@ -333,69 +341,74 @@ export default function HomePage() {
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: 20,
-                boxShadow: '0 10px 40px rgba(0,0,0,0.04)',
-                padding: 10,
-                borderRadius: 12,
-                background: '#fcfcfc',
+                boxShadow: '0 20px 50px rgba(33,45,69,0.06)',
+                padding: 16,
+                borderRadius: 16,
+                background: '#f8fafc',
+                border: '1px solid var(--border-color)',
               }}>
                 {/* Stat 1 */}
                 <div style={{
                   background: '#ffffff',
-                  border: '1px solid #E1E1E1',
-                  padding: '50px 40px',
-                  borderRadius: 8,
-                }}>
-                  <h2 style={{ fontSize: 35, fontWeight: 700, color: 'var(--text-main)', margin: '0 0 10px 0' }}>
+                  border: '1px solid var(--border-color)',
+                  padding: '40px 30px',
+                  borderRadius: 12,
+                  transition: 'transform 0.25s ease, border-color 0.25s ease',
+                }} className="hover-card-border">
+                  <div style={{ fontSize: 36, fontWeight: 800, color: '#212d45', fontFamily: 'var(--font-heading)', marginBottom: 8, letterSpacing: '-0.02em' }}>
                     {content?.statsSection?.stat1Value || '30.000+'}
-                  </h2>
-                  <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
+                  </div>
+                  <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, fontWeight: 600 }}>
                     {content?.statsSection?.[isTr ? 'stat1LabelTr' : 'stat1LabelEn'] || (isTr ? 'Erişilebilir Parça Numarası' : 'Accessible Part Numbers')}
                   </p>
                 </div>
+
                 {/* Stat 2 */}
                 <div style={{
                   background: '#ffffff',
-                  border: '1px solid #E1E1E1',
-                  padding: '50px 40px',
-                  borderRadius: 8,
-                }}>
-                  <h2 style={{ fontSize: 35, fontWeight: 700, color: 'var(--text-main)', margin: '0 0 10px 0' }}>
+                  border: '1px solid var(--border-color)',
+                  padding: '40px 30px',
+                  borderRadius: 12,
+                  transition: 'transform 0.25s ease, border-color 0.25s ease',
+                }} className="hover-card-border">
+                  <div style={{ fontSize: 36, fontWeight: 800, color: '#212d45', fontFamily: 'var(--font-heading)', marginBottom: 8, letterSpacing: '-0.02em' }}>
                     {content?.statsSection?.stat2Value || '56+'}
-                  </h2>
-                  <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
+                  </div>
+                  <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, fontWeight: 600 }}>
                     {content?.statsSection?.[isTr ? 'stat2LabelTr' : 'stat2LabelEn'] || (isTr ? 'Saygın İş Ortağı' : 'Reputable Business Partners')}
                   </p>
                 </div>
+
                 {/* Stat 3 */}
                 <div style={{
                   background: '#ffffff',
-                  border: '1px solid #E1E1E1',
-                  padding: '50px 40px',
-                  borderRadius: 8,
-                }}>
-                  <h2 style={{ fontSize: 35, fontWeight: 700, color: 'var(--text-main)', margin: '0 0 10px 0' }}>
+                  border: '1px solid var(--border-color)',
+                  padding: '40px 30px',
+                  borderRadius: 12,
+                  transition: 'transform 0.25s ease, border-color 0.25s ease',
+                }} className="hover-card-border">
+                  <div style={{ fontSize: 36, fontWeight: 800, color: '#212d45', fontFamily: 'var(--font-heading)', marginBottom: 8, letterSpacing: '-0.02em' }}>
                     {content?.statsSection?.stat3Value || '5+'}
-                  </h2>
-                  <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0 }}>
+                  </div>
+                  <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, fontWeight: 600 }}>
                     {content?.statsSection?.[isTr ? 'stat3LabelTr' : 'stat3LabelEn'] || (isTr ? 'Günlük Operasyon' : 'Daily Operation')}
                   </p>
                 </div>
+
                 {/* Stat 4 */}
                 <div style={{
                   background: '#ffffff',
-                  border: '1px solid #E1E1E1',
-                  padding: '50px 40px',
-                  borderRadius: 8,
+                  border: '1px solid var(--border-color)',
+                  padding: '40px 30px',
+                  borderRadius: 12,
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
-                }}>
-                  <div style={{ color: 'var(--primary)', marginBottom: 8 }}>
-                    <svg style={{ width: 32, height: 32 }} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12a7.5 7.5 0 0015 0 7.5 7.5 0 00-15 0z"></path>
-                    </svg>
+                }} className="hover-card-border">
+                  <div style={{ color: '#ffc03d', marginBottom: 8 }}>
+                    <Shield size={32} />
                   </div>
-                  <p style={{ fontSize: 14, color: 'var(--text-muted)', margin: 0, fontWeight: 600 }}>
+                  <p style={{ fontSize: 13, color: 'var(--text-main)', margin: 0, fontWeight: 700 }}>
                     {isTr ? 'Müşterilerimizin Güveni' : 'Our Customers Value'}
                   </p>
                 </div>
@@ -410,9 +423,9 @@ export default function HomePage() {
           SECTION 3: PARTS RANGE
       ═══════════════════════════════════════════════════ */}
       <section style={{
-        background: '#ffffff',
-        paddingTop: 100,
-        paddingBottom: 100,
+        background: '#f8fafc',
+        paddingTop: 110,
+        paddingBottom: 110,
         borderTop: '1px solid var(--border-color)',
       }}>
         <div className="container">
@@ -427,48 +440,47 @@ export default function HomePage() {
             marginBottom: 60,
           }}>
             <div>
-              <h4 style={{
-                fontSize: 16,
-                fontWeight: 200,
-                color: 'var(--primary)',
-                fontFamily: 'var(--font-heading)',
-                textTransform: 'uppercase',
-                marginBottom: 8,
-              }}>
-                {isTr ? 'Hayalinizi Gerçekleştirin ve İlham Verin' : 'Achieve Your Dream and Inspire'}
-              </h4>
+              <div style={{ marginBottom: 12 }}>
+                <span className="badge-gold">
+                  <span className="badge-gold-dot" />
+                  {isTr ? 'HAYALİNİZİ GERÇEKLEŞTİRİN VE İLHAM VERİN' : 'ACHIEVE YOUR DREAM AND INSPIRE'}
+                </span>
+              </div>
               <h2 style={{
-                fontSize: 40,
-                fontWeight: 700,
+                fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
+                fontWeight: 800,
                 color: 'var(--text-main)',
                 fontFamily: 'var(--font-heading)',
                 margin: 0,
+                letterSpacing: '-0.01em',
               }}>
                 {isTr ? 'PARÇA YELPAZESİ' : 'PARTS RANGE'}
               </h2>
             </div>
 
             <Link href="/productrange" className="btn btn-primary" style={{
-              padding: '24px 34px',
+              padding: '16px 32px',
               fontSize: 14,
-              fontWeight: 600,
-              borderRadius: '12px',
+              fontWeight: 700,
+              borderRadius: 8,
               textTransform: 'uppercase',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: 12,
+              gap: 10,
               backgroundColor: '#ffffff',
-              color: 'var(--primary)',
+              color: '#212d45',
               border: '1px solid var(--border-color)',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = '#ffc03d';
-              e.currentTarget.style.color = '#000000';
+              e.currentTarget.style.color = '#212d45';
+              e.currentTarget.style.borderColor = '#ffc03d';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = '#ffffff';
-              e.currentTarget.style.color = 'var(--primary)';
+              e.currentTarget.style.color = '#212d45';
+              e.currentTarget.style.borderColor = 'var(--border-color)';
             }}>
               <span>{isTr ? 'Ürün Yelpazesini İnceleyin' : 'To View Product Range'}</span>
               <ArrowRight size={18} />
@@ -478,39 +490,54 @@ export default function HomePage() {
           {/* Product Cards Grid */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-            gap: 25,
+            gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
+            gap: 28,
           }}>
             {productCards.map((card, idx) => (
               <ScrollReveal key={idx} delay={idx * 60}>
                 <div style={{
                   background: '#ffffff',
-                  border: '1px solid #E1E1E1',
-                  borderRadius: 0,
+                  border: '1px solid var(--border-color)',
+                  borderRadius: 14,
                   overflow: 'hidden',
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
                   transition: 'all 0.3s ease',
                 }}
                 className="hover-card-border"
                 >
-                  <div style={{ position: 'relative', height: 200, width: '100%' }}>
+                  <div style={{ position: 'relative', height: 220, width: '100%', overflow: 'hidden' }}>
                     <Image
                       src={card.img}
                       alt={card.title}
                       fill
                       style={{ objectFit: 'cover' }}
                     />
+                    <div style={{
+                      position: 'absolute', top: 14, left: 14,
+                      background: 'rgba(33,45,69,0.85)',
+                      backdropFilter: 'blur(8px)',
+                      color: '#ffc03d',
+                      padding: '4px 10px',
+                      borderRadius: 99,
+                      fontSize: 10,
+                      fontWeight: 800,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                    }}>
+                      OEM COMPATIBLE
+                    </div>
                   </div>
-                  <div style={{ padding: 25, flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div style={{ padding: 28, flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
                       <h3 style={{
                         fontSize: 18,
                         fontWeight: 700,
                         fontFamily: 'var(--font-heading)',
                         color: 'var(--text-main)',
-                        marginBottom: 15,
+                        marginBottom: 12,
                       }}>
                         <Link href={card.href} style={{ color: 'inherit', textDecoration: 'none' }}>
                           {isTr ? card.titleTr : card.title}
@@ -520,7 +547,7 @@ export default function HomePage() {
                         fontSize: 14,
                         lineHeight: 1.6,
                         color: 'var(--text-muted)',
-                        marginBottom: 20,
+                        marginBottom: 24,
                       }}>
                         {isTr ? card.descTr : card.desc}
                       </p>
@@ -548,7 +575,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════
-          SECTION 4: SUSTAINABILITY
+          SECTION 4: SUSTAINABILITY & BEST PRACTICES
       ═══════════════════════════════════════════════════ */}
       <section style={{
         position: 'relative',
@@ -560,7 +587,7 @@ export default function HomePage() {
           {/* Left panel - Sustainability */}
           <div style={{
             position: 'relative',
-            padding: '80px 64px',
+            padding: '90px 70px',
             display: 'flex',
             alignItems: 'center',
           }}>
@@ -572,39 +599,36 @@ export default function HomePage() {
               backgroundPosition: 'center center',
               opacity: 0.12,
             }} />
-            <div style={{ position: 'relative', zIndex: 1, maxWidth: '520px' }}>
-              <h4 style={{
-                fontSize: 16,
-                fontWeight: 200,
-                color: '#ffc03d',
-                fontFamily: 'var(--font-heading)',
-                textTransform: 'uppercase',
-                marginBottom: 10,
-              }}>
-                {content?.sustainability?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Sürdürülebilirlik' : 'Sustainability')}
-              </h4>
+            <div style={{ position: 'relative', zIndex: 1, maxWidth: '540px' }}>
+              <div style={{ marginBottom: 16 }}>
+                <span className="badge-gold">
+                  <span className="badge-gold-dot" />
+                  {content?.sustainability?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Sürdürülebilirlik' : 'Sustainability')}
+                </span>
+              </div>
               <h2 style={{
-                fontSize: 36,
-                fontWeight: 700,
-                lineHeight: 1.3,
+                fontSize: 'clamp(2rem, 3.2vw, 2.5rem)',
+                fontWeight: 800,
+                lineHeight: 1.25,
                 color: '#ffffff',
                 fontFamily: 'var(--font-heading)',
-                marginBottom: 20,
+                marginBottom: 24,
+                letterSpacing: '-0.01em',
               }}>
                 {content?.sustainability?.[isTr ? 'titleTr' : 'titleEn'] || (isTr ? 'İnsanları Sağlıklı ve Güvende Tutmaya Kararlıyız' : 'Committed To Keep People Healthy & Safe')}
               </h2>
               <p style={{
                 fontSize: 16,
                 lineHeight: 1.7,
-                color: 'rgba(255,255,255,0.8)',
-                marginBottom: 35,
+                color: 'rgba(255,255,255,0.85)',
+                marginBottom: 40,
               }}>
                 {content?.sustainability?.[isTr ? 'descTr' : 'descEn'] || (isTr
                   ? 'Amacımız insanların sağlıklı ve güvende kalmasına yardımcı olmaktır ve dünya çapında refahı desteklemek için sürekli yeni yollar bulmaya kararlıyız. Herkesin en iyi hayatını yaşayabileceği bir dünyaya ulaşmak için birlikte çalışalım.'
                   : "Our goal is to help people stay healthy and safe, and we are committed to constantly finding new ways to support well-being worldwide. Let's work together to achieve a world where everyone can live their best lives.")}
               </p>
               <Link href="/contact" className="btn btn-primary" style={{
-                padding: '15px 45px', fontSize: 14, fontWeight: 500, borderRadius: 0, textTransform: 'uppercase'
+                padding: '16px 40px', fontSize: 14, fontWeight: 700, borderRadius: 8, textTransform: 'uppercase', letterSpacing: '0.04em'
               }}>
                 {isTr ? 'İletişime Geçin' : 'Get In Touch'}
               </Link>
@@ -615,7 +639,7 @@ export default function HomePage() {
           <div style={{
             position: 'relative',
             backgroundColor: '#ffc03d',
-            padding: '80px 64px',
+            padding: '90px 70px',
             display: 'flex',
             alignItems: 'center',
           }}>
@@ -625,26 +649,27 @@ export default function HomePage() {
               backgroundImage: 'url(/about-us-2.png)',
               backgroundSize: 'cover',
               backgroundPosition: 'top center',
-              opacity: 0.1,
+              opacity: 0.08,
             }} />
-            <div style={{ position: 'relative', zIndex: 1, maxWidth: '520px' }}>
-              <h4 style={{
-                fontSize: 16,
-                fontWeight: 200,
-                color: '#212d45',
-                fontFamily: 'var(--font-heading)',
-                textTransform: 'uppercase',
-                marginBottom: 10,
+            <div style={{ position: 'relative', zIndex: 1, maxWidth: '540px' }}>
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '4px 12px', borderRadius: 99, background: 'rgba(33,45,69,0.12)',
+                border: '1px solid rgba(33,45,69,0.25)', marginBottom: 16
               }}>
-                {isTr ? 'En İyi Uygulamaları Takip Ediyoruz' : 'We Follow Best Practices'}
-              </h4>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#212d45' }} />
+                <span style={{ fontSize: 11, fontWeight: 800, color: '#212d45', letterSpacing: '0.1em' }}>
+                  {isTr ? 'EN İYİ UYGULAMALARI TAKİP EDİYORUZ' : 'WE FOLLOW BEST PRACTICES'}
+                </span>
+              </div>
               <p style={{
                 fontSize: 22,
                 fontStyle: 'italic',
-                lineHeight: 1.5,
+                lineHeight: 1.55,
                 color: '#212d45',
-                fontWeight: 500,
-                marginBottom: 30,
+                fontWeight: 600,
+                marginBottom: 35,
+                fontFamily: 'var(--font-heading)',
               }}>
                 {isTr
                   ? '“Daha parlak bir gelecek için sürdürülebilirliği, modern teknolojiyi ve zamanında planlamayı benimseyelim. Birlikte, işimizde ve dünyada olumlu bir etki yaratabiliriz.”'
@@ -658,7 +683,7 @@ export default function HomePage() {
                 margin: 0,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 15,
+                gap: 16,
               }}>
                 {[
                   { en: content?.sustainability?.bullet1En || 'Sustainability', tr: content?.sustainability?.bullet1Tr || 'Sürdürülebilirlik' },
@@ -669,16 +694,17 @@ export default function HomePage() {
                   <li key={idx} style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 12,
-                    fontSize: 18,
-                    fontWeight: 'bold',
+                    gap: 14,
+                    fontSize: 17,
+                    fontWeight: 800,
                     color: '#212d45',
+                    fontFamily: 'var(--font-heading)',
                   }}>
                     <span style={{
-                      width: 24, height: 24, borderRadius: '50%',
+                      width: 26, height: 26, borderRadius: '50%',
                       backgroundColor: '#212d45', color: '#ffc03d',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: 12,
+                      fontSize: 13, fontWeight: 900, flexShrink: 0
                     }}>
                       ✓
                     </span>
@@ -697,8 +723,8 @@ export default function HomePage() {
       ═══════════════════════════════════════════════════ */}
       <section style={{
         background: '#ffffff',
-        paddingTop: 100,
-        paddingBottom: 100,
+        paddingTop: 110,
+        paddingBottom: 110,
       }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64 }} className="responsive-grid-1col">
@@ -707,29 +733,33 @@ export default function HomePage() {
             <ScrollReveal direction="left">
               <div style={{
                 backgroundColor: '#212d45',
-                padding: '50px',
+                padding: '54px 48px',
                 color: '#ffffff',
+                borderRadius: 18,
+                boxShadow: '0 20px 50px rgba(33,45,69,0.12)',
+                border: '1px solid rgba(255,255,255,0.08)',
               }}>
                 <h2 style={{
                   fontSize: 32,
-                  fontWeight: 700,
+                  fontWeight: 800,
                   fontFamily: 'var(--font-heading)',
                   color: '#ffffff',
                   marginBottom: 10,
+                  letterSpacing: '-0.01em',
                 }}>
                   {isTr ? 'Teklif Talebi' : 'Request a Quote'}
                 </h2>
                 <p style={{
                   fontSize: 15,
-                  color: 'rgba(255,255,255,0.7)',
-                  marginBottom: 35,
+                  color: 'rgba(255,255,255,0.75)',
+                  marginBottom: 36,
                 }}>
                   {isTr ? 'Herhangi bir yardıma veya desteğe mi ihtiyacınız var?' : 'Are you in need of any kind of assistance or support?'}
                 </p>
 
                 {/* Form fields */}
                 <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 15 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                     <div>
                       <input
                         type="text"
@@ -737,8 +767,9 @@ export default function HomePage() {
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         style={{
-                          width: '100%', padding: '12px 15px', background: 'rgba(255,255,255,0.05)',
-                          border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff', fontSize: 14,
+                          width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.06)',
+                          border: '1px solid rgba(255,255,255,0.18)', color: '#ffffff', fontSize: 14,
+                          borderRadius: 8, transition: 'border-color 0.2s', outline: 'none'
                         }}
                       />
                     </div>
@@ -749,8 +780,9 @@ export default function HomePage() {
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         style={{
-                          width: '100%', padding: '12px 15px', background: 'rgba(255,255,255,0.05)',
-                          border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff', fontSize: 14,
+                          width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.06)',
+                          border: '1px solid rgba(255,255,255,0.18)', color: '#ffffff', fontSize: 14,
+                          borderRadius: 8, transition: 'border-color 0.2s', outline: 'none'
                         }}
                       />
                     </div>
@@ -764,8 +796,9 @@ export default function HomePage() {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       style={{
-                        width: '100%', padding: '12px 15px', background: 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff', fontSize: 14,
+                        width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.06)',
+                        border: '1px solid rgba(255,255,255,0.18)', color: '#ffffff', fontSize: 14,
+                        borderRadius: 8, transition: 'border-color 0.2s', outline: 'none'
                       }}
                     />
                   </div>
@@ -777,8 +810,9 @@ export default function HomePage() {
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                       style={{
-                        width: '100%', padding: '12px 15px', background: 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff', fontSize: 14,
+                        width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.06)',
+                        border: '1px solid rgba(255,255,255,0.18)', color: '#ffffff', fontSize: 14,
+                        borderRadius: 8, transition: 'border-color 0.2s', outline: 'none'
                       }}
                     />
                   </div>
@@ -791,9 +825,9 @@ export default function HomePage() {
                       required
                       rows={5}
                       style={{
-                        width: '100%', padding: '12px 15px', background: 'rgba(255,255,255,0.05)',
-                        border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff', fontSize: 14,
-                        resize: 'vertical',
+                        width: '100%', padding: '14px 18px', background: 'rgba(255,255,255,0.06)',
+                        border: '1px solid rgba(255,255,255,0.18)', color: '#ffffff', fontSize: 14,
+                        borderRadius: 8, resize: 'vertical', transition: 'border-color 0.2s', outline: 'none'
                       }}
                     />
                   </div>
@@ -802,16 +836,19 @@ export default function HomePage() {
                     type="submit"
                     disabled={submitStatus === 'loading'}
                     style={{
-                      padding: '15px 40px', backgroundColor: '#ffc03d', border: 'none',
-                      color: '#212d45', fontWeight: 'bold', textTransform: 'uppercase',
+                      padding: '16px 40px', backgroundColor: '#ffc03d', border: 'none',
+                      color: '#212d45', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em',
                       cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-                      transition: 'all 0.2s',
+                      borderRadius: 8, transition: 'all 0.25s', fontFamily: 'var(--font-heading)',
+                      boxShadow: '0 8px 24px rgba(255,192,61,0.3)',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.backgroundColor = '#ffffff';
+                      e.currentTarget.style.color = '#212d45';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.backgroundColor = '#ffc03d';
+                      e.currentTarget.style.color = '#212d45';
                     }}
                   >
                     <span>{isTr ? 'Bizimle İletişime Geçin' : 'Contact Us'}</span>
@@ -819,12 +856,12 @@ export default function HomePage() {
                   </button>
 
                   {submitStatus === 'success' && (
-                    <p style={{ color: '#10b981', fontSize: 14, margin: '10px 0 0' }}>
+                    <p style={{ color: '#10b981', fontSize: 14, margin: '10px 0 0', fontWeight: 600 }}>
                       {isTr ? 'Mesajınız başarıyla gönderildi!' : 'Your message has been sent successfully!'}
                     </p>
                   )}
                   {submitStatus === 'error' && (
-                    <p style={{ color: '#ef4444', fontSize: 14, margin: '10px 0 0' }}>
+                    <p style={{ color: '#ef4444', fontSize: 14, margin: '10px 0 0', fontWeight: 600 }}>
                       {isTr ? 'Bir hata oluştu, lütfen daha sonra tekrar deneyin.' : 'An error occurred, please try again later.'}
                     </p>
                   )}
@@ -835,59 +872,52 @@ export default function HomePage() {
             {/* Right side: FAQs */}
             <ScrollReveal direction="right">
               <div>
-                <h4 style={{
-                  fontSize: 16,
-                  fontWeight: 200,
-                  color: 'var(--primary)',
-                  fontFamily: 'var(--font-heading)',
-                  textTransform: 'uppercase',
-                  marginBottom: 10,
-                }}>
-                  {isTr ? 'Daha Fazla Bilgi Edin' : 'Learn More From'}
-                </h4>
+                <div style={{ marginBottom: 12 }}>
+                  <span className="badge-gold">
+                    <span className="badge-gold-dot" />
+                    {isTr ? 'DAHA FAZLA BİLGİ EDİN' : 'LEARN MORE FROM'}
+                  </span>
+                </div>
                 <h2 style={{
                   fontSize: 32,
-                  fontWeight: 700,
+                  fontWeight: 800,
                   fontFamily: 'var(--font-heading)',
                   color: 'var(--text-main)',
                   marginBottom: 35,
+                  letterSpacing: '-0.01em',
                 }}>
                   {isTr ? 'Sıkça Sorulan Sorular' : 'Frequently Asked Questions'}
                 </h2>
 
                 {/* FAQ items */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                   {faqs.map((faq, idx) => {
                     const isOpen = openFaq === idx;
                     return (
-                      <div key={idx} style={{
-                        border: '1px solid #E1E1E1',
-                        borderRadius: 0,
-                        overflow: 'hidden',
-                      }}>
+                      <div key={idx} className={`faq-accordion-item ${isOpen ? 'active' : ''}`}>
                         <button
                           onClick={() => setOpenFaq(isOpen ? null : idx)}
                           style={{
-                            width: '100%', padding: '20px', display: 'flex',
+                            width: '100%', padding: '22px 24px', display: 'flex',
                             alignItems: 'center', justifyContent: 'space-between',
-                            background: '#fcfcfc', border: 'none', cursor: 'pointer',
-                            textAlign: 'left',
+                            background: isOpen ? '#f8fafc' : '#ffffff', border: 'none', cursor: 'pointer',
+                            textAlign: 'left', transition: 'background-color 0.2s ease',
                           }}
                         >
                           <span style={{
-                            fontSize: 16, fontWeight: 600, color: isOpen ? 'var(--primary)' : 'var(--text-main)',
-                            fontFamily: 'var(--font-heading)',
+                            fontSize: 16, fontWeight: 700, color: isOpen ? 'var(--primary)' : 'var(--text-main)',
+                            fontFamily: 'var(--font-heading)', paddingRight: 16,
                           }}>
                             {isTr ? faq.qTr : faq.q}
                           </span>
-                          <span style={{ color: isOpen ? 'var(--primary)' : 'var(--text-muted)' }}>
-                            {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                          <span style={{ color: isOpen ? 'var(--primary)' : 'var(--text-muted)', flexShrink: 0 }}>
+                            {isOpen ? <Minus size={20} /> : <Plus size={20} />}
                           </span>
                         </button>
                         {isOpen && (
                           <div style={{
-                            padding: '20px', borderTop: '1px solid #E1E1E1',
-                            fontSize: 14, lineHeight: 1.6, color: 'var(--text-muted)',
+                            padding: '22px 24px', borderTop: '1px solid var(--border-color)',
+                            fontSize: 15, lineHeight: 1.7, color: 'var(--text-muted)',
                             background: '#ffffff',
                           }}>
                             {isTr ? faq.aTr : faq.a}
