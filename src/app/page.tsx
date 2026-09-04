@@ -146,16 +146,12 @@ export default function HomePage() {
       ═══════════════════════════════════════════════════ */}
       <section style={{
         position: 'relative',
-        minHeight: '900px',
+        minHeight: '820px',
         display: 'flex',
         alignItems: 'center',
-        background: 'linear-gradient(135deg, #172033 0%, #212d45 60%, #151d2f 100%)',
+        background: '#1a2332',
         overflow: 'hidden',
       }}>
-        {/* Animated background glow & hero scanlines */}
-        <div className="hero-animated-bg" />
-        <div className="hero-scan" />
-
         {/* Hero Background image with dark gradient overlay */}
         <div style={{
           position: 'absolute', inset: 0,
@@ -163,29 +159,28 @@ export default function HomePage() {
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.16,
+          opacity: 0.22,
         }} />
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'radial-gradient(ellipse at center, rgba(33,45,69,0.3) 0%, rgba(23,32,51,0.95) 100%)',
+          background: 'linear-gradient(90deg, #1a2332 30%, rgba(26,35,50,0.85) 60%, rgba(26,35,50,0.4) 100%)',
           pointerEvents: 'none',
         }} />
 
-        <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: '120px', paddingBottom: '120px' }}>
+        <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: '110px', paddingBottom: '110px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 60, alignItems: 'center' }} className="responsive-grid-1col">
             <div style={{ maxWidth: '780px' }}>
               
-              {/* Gold Eyebrow Badge */}
-              <div style={{ marginBottom: 24 }}>
+              {/* Eyebrow Label */}
+              <div style={{ marginBottom: 20 }}>
                 <span className="badge-gold">
-                  <span className="badge-gold-dot" />
-                  {content?.hero?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Hayalinizi Gerçekleştirin ve İlham Verin' : 'Achieve Your Dream and Inspire')}
+                  {content?.hero?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'OEM UYUMLU YEDEK PARÇALAR VE DRİFTER ÇÖZÜMLERİ' : 'OEM COMPATIBLE SPARE PARTS & DRIFTER SOLUTIONS')}
                 </span>
               </div>
 
               {/* H1 Title */}
               <h1 style={{
-                fontSize: 'clamp(2.5rem, 5.5vw, 4.8rem)',
+                fontSize: 'clamp(2.4rem, 5vw, 4.5rem)',
                 fontWeight: 800,
                 lineHeight: 1.15,
                 color: '#ffffff',
@@ -194,7 +189,7 @@ export default function HomePage() {
                 marginBottom: 24,
                 letterSpacing: '-0.02em',
               }}>
-                {content?.hero?.[isTr ? 'titleTr' : 'titleEn'] || (isTr ? 'MADENCİLİK ÇÖZÜMLERİ VE YEDEK PARÇALAR' : 'MINING SOLUTIONS AND PARTS')}
+                {content?.hero?.[isTr ? 'titleTr' : 'titleEn'] || (isTr ? 'MADENCİLİK VE KAYA DELİCİ YEDEK PARÇALARI' : 'MINING MACHINERY & ROCK DRILL COMPONENTS')}
               </h1>
 
               {/* Description */}
@@ -202,37 +197,36 @@ export default function HomePage() {
                 fontSize: 18,
                 lineHeight: 1.7,
                 color: 'rgba(255, 255, 255, 0.85)',
-                marginBottom: 48,
+                marginBottom: 44,
                 maxWidth: '680px'
               }}>
                 {content?.hero?.[isTr ? 'descTr' : 'descEn'] || (isTr
-                  ? 'Operasyonlarınızı optimize etmek için gelişmiş tekniklerle endüstri standartlarını aşın. Başarı için olağanüstü parçalar konusunda bize güvenin.'
-                  : 'Exceed industry standards with advanced techniques to optimize your operations. Trust us for exceptional parts for success.')}
+                  ? "Sandvik ve Epiroc kaya deliciler, hidrolik drifterlar, motor ve güç aktarım sistemleri için ağır hizmet yedek parçaları. Türkiye'den tüm dünyaya hızlı sevkiyat."
+                  : 'Global supplier of heavy-duty replacement components for Sandvik & Epiroc rock drills, hydraulic drifters, engines, and powertrains. Shipped directly from Turkey worldwide.')}
               </p>
 
               {/* Buttons */}
               <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
                 <Link href="/industries" className="btn btn-primary" style={{
-                  padding: '16px 42px', fontSize: 15, fontWeight: 700, borderRadius: 8, textTransform: 'uppercase', letterSpacing: '0.04em',
-                  boxShadow: '0 8px 25px rgba(255, 192, 61, 0.3)'
+                  padding: '16px 42px', fontSize: 15, fontWeight: 700, borderRadius: 6, textTransform: 'uppercase', letterSpacing: '0.04em',
                 }}>
                   <span>{isTr ? 'Hizmetlerimiz' : 'Our Services'}</span>
                   <ArrowRight size={18} />
                 </Link>
                 <Link href="/contact" className="btn" style={{
-                  padding: '16px 42px', fontSize: 15, fontWeight: 700, borderRadius: 8, textTransform: 'uppercase', letterSpacing: '0.04em',
-                  backgroundColor: 'rgba(255,255,255,0.06)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.25)',
-                  backdropFilter: 'blur(8px)', transition: 'all 0.25s ease'
+                  padding: '16px 42px', fontSize: 15, fontWeight: 700, borderRadius: 6, textTransform: 'uppercase', letterSpacing: '0.04em',
+                  backgroundColor: 'transparent', color: '#ffffff', border: '1px solid rgba(255,255,255,0.4)',
+                  transition: 'all 0.25s ease'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = '#ffc03d';
-                  e.currentTarget.style.color = '#000000';
+                  e.currentTarget.style.color = '#1a2332';
                   e.currentTarget.style.borderColor = '#ffc03d';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
+                  e.currentTarget.style.backgroundColor = 'transparent';
                   e.currentTarget.style.color = '#ffffff';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)';
                 }}>
                   {isTr ? 'Bize Ulaşın' : 'Contact Us'}
                 </Link>
@@ -240,18 +234,17 @@ export default function HomePage() {
 
             </div>
 
-            {/* Right side floating product catalog preview card */}
+            {/* Right side product preview card */}
             <div className="desktop-nav" style={{ width: 360, flexShrink: 0 }}>
               <div style={{
-                borderRadius: 20,
+                borderRadius: 12,
                 overflow: 'hidden',
-                border: '1px solid rgba(255,192,61,0.4)',
-                boxShadow: '0 30px 70px rgba(0,0,0,0.5), 0 0 30px rgba(255,192,61,0.15)',
+                border: '1px solid rgba(255,192,61,0.3)',
+                boxShadow: '0 20px 50px rgba(0,0,0,0.4)',
                 position: 'relative',
-                background: '#1a243a',
-                transition: 'transform 0.4s ease',
-              }} className="float">
-                <div style={{ position: 'relative', height: 420, width: '100%' }}>
+                background: '#141c2b',
+              }}>
+                <div style={{ position: 'relative', height: 400, width: '100%' }}>
                   <Image
                     src={content?.hero?.imageUrl || '/hero-mining.png'}
                     alt="FED Mining - Drifter parts"
@@ -262,17 +255,11 @@ export default function HomePage() {
                 </div>
                 <div style={{
                   position: 'absolute', bottom: 0, left: 0, right: 0,
-                  background: 'linear-gradient(to top, rgba(23,32,51,0.98) 0%, rgba(23,32,51,0.85) 60%, transparent 100%)',
-                  padding: '36px 24px 24px',
-                  backdropFilter: 'blur(10px)'
+                  background: 'linear-gradient(to top, rgba(20,28,43,0.98) 0%, rgba(20,28,43,0.85) 60%, transparent 100%)',
+                  padding: '28px 24px 20px',
                 }}>
-                  <div style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 6,
-                    padding: '4px 10px', borderRadius: 99, background: 'rgba(255,192,61,0.15)',
-                    border: '1px solid rgba(255,192,61,0.4)', marginBottom: 8
-                  }}>
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ffc03d' }} />
-                    <span style={{ fontSize: 10, fontWeight: 800, color: '#ffc03d', letterSpacing: '0.08em' }}>SANDVIK &amp; EPIROC COMPATIBLE</span>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: '#ffc03d', letterSpacing: '0.08em', marginBottom: 4 }}>
+                    SANDVIK &amp; EPIROC REPLACEMENT
                   </div>
                   <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>
                     {isTr ? 'OEM uyumlu drifter & kaya delici parçaları' : 'OEM compatible rock drill & drifter components'}
@@ -289,8 +276,8 @@ export default function HomePage() {
       ═══════════════════════════════════════════════════ */}
       <section style={{
         background: '#ffffff',
-        paddingTop: 110,
-        paddingBottom: 110,
+        paddingTop: 100,
+        paddingBottom: 100,
       }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }} className="responsive-grid-1col">
@@ -300,12 +287,11 @@ export default function HomePage() {
               <div>
                 <div style={{ marginBottom: 16 }}>
                   <span className="badge-gold">
-                    <span className="badge-gold-dot" />
-                    {content?.statsSection?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'Yenilmez Başarımız' : 'Our Undefeated Success')}
+                    {content?.statsSection?.[isTr ? 'subtitleTr' : 'subtitleEn'] || (isTr ? 'FED MINING AYRICALIKLARI' : 'THE FED MINING ADVANTAGE')}
                   </span>
                 </div>
                 <h2 style={{
-                  fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
+                  fontSize: 'clamp(2rem, 3.5vw, 2.6rem)',
                   fontWeight: 800,
                   lineHeight: 1.25,
                   color: 'var(--text-main)',
@@ -314,8 +300,8 @@ export default function HomePage() {
                   letterSpacing: '-0.01em',
                 }}>
                   {content?.statsSection?.[isTr ? 'titleTr' : 'titleEn'] || (isTr 
-                    ? 'Operasyonlarınızı optimize etmenin daha verimli bir yolunu mu arıyorsunuz?' 
-                    : 'Are you looking for a more efficient way to optimize your operations?')}
+                    ? 'Yüksek Performanslı Maden Ekipmanları ve Hızlı Teslimat' 
+                    : 'High-Performance Mining Equipment & Fast Global Dispatch')}
                 </h2>
                 <p style={{
                   fontSize: 16,
@@ -324,11 +310,11 @@ export default function HomePage() {
                   marginBottom: 35,
                 }}>
                   {content?.statsSection?.[isTr ? 'descTr' : 'descEn'] || (isTr
-                    ? 'Başarıya ulaşmanıza yardımcı olacak olağanüstü parçaları sunmak için uzmanlığımıza ve deneyimimize güvenin. Operasyonlarınızı bir üst seviyeye taşımanıza yardımcı olalım.'
-                    : 'Trust in our expertise and experience to deliver exceptional parts that can help set you up for success. Let us help you take your operations to the next level.')}
+                    ? 'Şantiye duruş sürelerini en aza indirmek ve makine verimliliğini artırmak için OEM uyumlu kaya delici yedek parçaları, drifter test stantları ve 400 saatlik revizyon kitleri sunuyoruz.'
+                    : 'We specialize in OEM-compatible rock drill spare parts, drifter test benches, and 400-hour overhaul kits engineered to minimize site downtime and maximize rig efficiency.')}
                 </p>
                 <Link href="/contact" className="btn btn-primary" style={{
-                  padding: '15px 45px', fontSize: 14, fontWeight: 500, borderRadius: 0, textTransform: 'uppercase'
+                  padding: '15px 45px', fontSize: 14, fontWeight: 700, borderRadius: 6, textTransform: 'uppercase'
                 }}>
                   {isTr ? 'Bizimle Çalışın' : 'Work With Us'}
                 </Link>
@@ -340,10 +326,9 @@ export default function HomePage() {
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
-                gap: 20,
-                boxShadow: '0 20px 50px rgba(33,45,69,0.06)',
+                gap: 16,
                 padding: 16,
-                borderRadius: 16,
+                borderRadius: 12,
                 background: '#f8fafc',
                 border: '1px solid var(--border-color)',
               }}>
@@ -351,15 +336,14 @@ export default function HomePage() {
                 <div style={{
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  padding: '40px 30px',
-                  borderRadius: 12,
-                  transition: 'transform 0.25s ease, border-color 0.25s ease',
+                  padding: '36px 28px',
+                  borderRadius: 8,
                 }} className="hover-card-border">
-                  <div style={{ fontSize: 36, fontWeight: 800, color: '#212d45', fontFamily: 'var(--font-heading)', marginBottom: 8, letterSpacing: '-0.02em' }}>
+                  <div style={{ fontSize: 34, fontWeight: 800, color: '#1a2332', fontFamily: 'var(--font-heading)', marginBottom: 8, letterSpacing: '-0.02em' }}>
                     {content?.statsSection?.stat1Value || '30.000+'}
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, fontWeight: 600 }}>
-                    {content?.statsSection?.[isTr ? 'stat1LabelTr' : 'stat1LabelEn'] || (isTr ? 'Erişilebilir Parça Numarası' : 'Accessible Part Numbers')}
+                    {content?.statsSection?.[isTr ? 'stat1LabelTr' : 'stat1LabelEn'] || (isTr ? 'Stok ve Katalog Parçası' : 'Catalog Part Numbers')}
                   </p>
                 </div>
 
@@ -367,15 +351,14 @@ export default function HomePage() {
                 <div style={{
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  padding: '40px 30px',
-                  borderRadius: 12,
-                  transition: 'transform 0.25s ease, border-color 0.25s ease',
+                  padding: '36px 28px',
+                  borderRadius: 8,
                 }} className="hover-card-border">
-                  <div style={{ fontSize: 36, fontWeight: 800, color: '#212d45', fontFamily: 'var(--font-heading)', marginBottom: 8, letterSpacing: '-0.02em' }}>
+                  <div style={{ fontSize: 34, fontWeight: 800, color: '#1a2332', fontFamily: 'var(--font-heading)', marginBottom: 8, letterSpacing: '-0.02em' }}>
                     {content?.statsSection?.stat2Value || '56+'}
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, fontWeight: 600 }}>
-                    {content?.statsSection?.[isTr ? 'stat2LabelTr' : 'stat2LabelEn'] || (isTr ? 'Saygın İş Ortağı' : 'Reputable Business Partners')}
+                    {content?.statsSection?.[isTr ? 'stat2LabelTr' : 'stat2LabelEn'] || (isTr ? 'İhracat Yapılan Ülke' : 'Export Countries')}
                   </p>
                 </div>
 
@@ -383,15 +366,14 @@ export default function HomePage() {
                 <div style={{
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  padding: '40px 30px',
-                  borderRadius: 12,
-                  transition: 'transform 0.25s ease, border-color 0.25s ease',
+                  padding: '36px 28px',
+                  borderRadius: 8,
                 }} className="hover-card-border">
-                  <div style={{ fontSize: 36, fontWeight: 800, color: '#212d45', fontFamily: 'var(--font-heading)', marginBottom: 8, letterSpacing: '-0.02em' }}>
-                    {content?.statsSection?.stat3Value || '5+'}
+                  <div style={{ fontSize: 34, fontWeight: 800, color: '#1a2332', fontFamily: 'var(--font-heading)', marginBottom: 8, letterSpacing: '-0.02em' }}>
+                    {content?.statsSection?.stat3Value || '400 HR'}
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--text-muted)', margin: 0, fontWeight: 600 }}>
-                    {content?.statsSection?.[isTr ? 'stat3LabelTr' : 'stat3LabelEn'] || (isTr ? 'Günlük Operasyon' : 'Daily Operation')}
+                    {content?.statsSection?.[isTr ? 'stat3LabelTr' : 'stat3LabelEn'] || (isTr ? 'Drifter Revizyon Garantisi' : 'Overhaul Kit Warranty')}
                   </p>
                 </div>
 
@@ -399,8 +381,8 @@ export default function HomePage() {
                 <div style={{
                   background: '#ffffff',
                   border: '1px solid var(--border-color)',
-                  padding: '40px 30px',
-                  borderRadius: 12,
+                  padding: '36px 28px',
+                  borderRadius: 8,
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
@@ -409,7 +391,7 @@ export default function HomePage() {
                     <Shield size={32} />
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--text-main)', margin: 0, fontWeight: 700 }}>
-                    {isTr ? 'Müşterilerimizin Güveni' : 'Our Customers Value'}
+                    {isTr ? 'OEM Kalite ve Standartları' : 'OEM Quality Standards'}
                   </p>
                 </div>
               </div>
@@ -424,8 +406,8 @@ export default function HomePage() {
       ═══════════════════════════════════════════════════ */}
       <section style={{
         background: '#f8fafc',
-        paddingTop: 110,
-        paddingBottom: 110,
+        paddingTop: 100,
+        paddingBottom: 100,
         borderTop: '1px solid var(--border-color)',
       }}>
         <div className="container">
@@ -437,17 +419,16 @@ export default function HomePage() {
             alignItems: 'center',
             flexWrap: 'wrap',
             gap: 20,
-            marginBottom: 60,
+            marginBottom: 50,
           }}>
             <div>
               <div style={{ marginBottom: 12 }}>
                 <span className="badge-gold">
-                  <span className="badge-gold-dot" />
-                  {isTr ? 'HAYALİNİZİ GERÇEKLEŞTİRİN VE İLHAM VERİN' : 'ACHIEVE YOUR DREAM AND INSPIRE'}
+                  {isTr ? 'YÜKSEK PERFORMANSLI YEDEK PARÇALAR' : 'ENGINEERED COMPONENT SOLUTIONS'}
                 </span>
               </div>
               <h2 style={{
-                fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
+                fontSize: 'clamp(2rem, 3.5vw, 2.6rem)',
                 fontWeight: 800,
                 color: 'var(--text-main)',
                 fontFamily: 'var(--font-heading)',
@@ -874,7 +855,6 @@ export default function HomePage() {
               <div>
                 <div style={{ marginBottom: 12 }}>
                   <span className="badge-gold">
-                    <span className="badge-gold-dot" />
                     {isTr ? 'DAHA FAZLA BİLGİ EDİN' : 'LEARN MORE FROM'}
                   </span>
                 </div>
